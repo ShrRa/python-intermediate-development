@@ -105,7 +105,7 @@ Let's recall the solution requirements we discussed in the previous episode:
     filtering out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
 - *Non-functional Requirements*:
   - SR1.2.3 (from UR1.2):
-    be able to determine periods for a hunder of light curves in under a minute.
+    be able to determine periods for a hundred of light curves in under a minute.
     
 ### How Should We Test These Requirements?
 
