@@ -54,7 +54,7 @@ def factorial(n):
     """Calculate the factorial of a given number.
 
     :param int n: The factorial to calculate
-    :return: The resultant factorial
+    :return: The resultan factorial
     """
     if n < 0:
         raise ValueError('Only use non-negative integers.')
@@ -83,15 +83,15 @@ def factorial(n):
     """Calculate the factorial of a given number.
 
     :param int n: The factorial to calculate
-    :return: The resultant factorial
+    :return: The result factorial
     """
     if n < 0:
         raise ValueError('Only use non-negative integers.')
 
     if n == 0 or n == 1:
-        return 1 # exit from recursion, prevents infinite loops
+        return 1  # exit from recursion, prevents infinite loops
     else:
-        return  n * factorial(n-1) # recursive call to the same function
+        return n * factorial(n-1) # recursive call to the same function
 ~~~
 {: .language-python}
 
@@ -205,6 +205,8 @@ so we will get the right result regardless of when or where the code runs.
 > that we already used in previous episodes -
 > most of its functions appear pure
 > as they return new data objects instead of changing existing ones.
+> It is espesially true due to [some upcoming changes](https://pandas.pydata.org/docs/user_guide/copy_on_write.html)
+> in the Pandas version three.
 {: .callout}
 
 There are other advantageous properties that can be derived from the functional approach to coding.
@@ -236,9 +238,11 @@ both map and reduce can be done in parallel and on smaller subsets of data,
 before aggregating all intermediate results into the final result.
 
 ### Mapping
-`map(f, C)` is a function takes another function `f()` and a collection `C` of data items as inputs.
-Calling `map(f, L)` applies the function `f(x)` to every data item `x` in a collection `C`
-and returns the resulting values as a new collection of the same size.
+`map(f, I)` is a generator which takes a function `f()` and an iterable  `I`
+(for example a collection like `list` or a generator like `range`) as inputs.
+Calling `map(f, I)` applies the function `f(x)` to every data item `x` in an iterable `I`
+and yields the resulting values. These values may be accumulated to a collection, such as 
+a `tuple` or a `dict`, or used as input for another function or generator.
 
 This is a simple mapping that takes a list of names and
 returns a list of the lengths of those names using the built-in function `len()`:
@@ -335,8 +339,8 @@ print(list(result))
 >             lc_datasets["lsst"]["band"] == b
 >         )
 >         # The observations in each band are converted to lists and stored as dict elements
->         lc[b+'_'+mag_col] = np.array(lc_datasets["lsst"][filt_band_obj][mag_col])
->         lc[b+'_'+time_col] = np.array(lc_datasets["lsst"][filt_band_obj][time_col])
+>         lc[f"{b}_{mag_col}"] = np.array(lc_datasets["lsst"][filt_band_obj][mag_col])
+>         lc[f"{b}_{time_col}"] = np.array(lc_datasets["lsst"][filt_band_obj][time_col])
 >     lcs.append(lc)
 > # Turn the list of dicts into a DataFrame    
 > lcs = pd.DataFrame.from_records(lcs)
@@ -355,7 +359,7 @@ print(list(result))
 > > but works only for `pd.Series`.
 > > ~~~
 > > b = 'u'
-> > lcs[b+'_'+mag_col+'_cleaned'] = lcs[b+'_'+mag_col].map(lambda l: np.where(np.isnan(l),0,l))
+> > lcs[f"{b}_{mag_col}_cleaned"] = lcs[f"{b}_{mag_col}"].map(lambda x: np.where(np.isnan(x),0,x))
 > > ~~~
 > > {: .language-python}
 > >
@@ -366,18 +370,18 @@ print(list(result))
 > > ~~~
 > > b = "u"
 > > # Create column names variables for better readability
-> > mcol = b + "_" + mag_col
-> > tcol = b + "_" + time_col
-> > mcol_cl = mcol + "_cleaned"
-> > tcol_cl = tcol + "_cleaned"
+> > mcol = f"{b}_{mag_col}"
+> > tcol = f"{b}_{time_col}"
+> > mcol_cl = f"{mcol}_cleaned"
+> > tcol_cl = f"{tcol}_cleaned"
 > > # The new cleaned columns, `mcol_cl` and `tcol_cl`, contain the result of applying
 > > # a lambda function to each row (`axis=1` argument). The lambda function returns a tuple
 > > # of two numpy arrays, filtered according to the mask that is `False` for the elements that
 > > # are NaNs and `True` to all other elements.
 > > lcs[[mcol_cl, tcol_cl]] = lcs.apply(
-> >     lambda l: (
-> >         l[mcol][~np.isnan(l[mcol])],
-> >         l[tcol][~np.isnan(l[mcol])],
+> >     lambda row: (
+> >         row[mcol][~np.isnan(row[mcol])],
+> >         row[tcol][~np.isnan(row[mcol])],
 > >     ),
 > >     axis=1,
 > >     result_type="expand",
@@ -499,21 +503,21 @@ Let's now have a look at reducing the elements of a data collection into a singl
 
 ### Reducing
 
-`reduce(f, C, initialiser)` function accepts a function `f()`,
-a collection `C` of data items
+`reduce(f, I, initialiser)` function accepts a function `f()`,
+an iterable `I` of data items
 and an optional `initialiser`,
 and returns a single cumulative value which
 aggregates (reduces) all the values from the collection into a single result.
-The reduction function first applies the function `f()` to the first two values in the collection
-(or to the `initialiser`, if present, and the first item from `C`).
-Then for each remaining value in the collection,
+The reduction function first applies the function `f()` to the first two values in the iterable
+(or to the `initialiser`, if present, and the first item from `I`).
+Then for each remaining value in the iterable,
 it takes the result of the previous computation
 and the next value from the collection as the new arguments to `f()`
 until we have processed all of the data and reduced it to a single value.
-For example, if collection `C` has 5 elements, the call `reduce(f, C)` calculates:
+For example, if collection `I` is a collection with 5 elements, the call `reduce(f, I)` calculates:
 
 ~~~
-f(f(f(f(C[0], C[1]), C[2]), C[3]), C[4])
+f(f(f(f(I[0], I[1]), I[2]), I[3]), I[4])
 ~~~
 
 One example of reducing would be to calculate the product of a sequence of numbers.
@@ -577,7 +581,9 @@ using the MapReduce approach.
 from functools import reduce
 
 def sum_of_squares(sequence):
-    squares = [x * x for x in sequence]  # use list comprehension for mapping
+    # Use generator expression for mapping. No calculations are actually happened in this line
+    squares = (x * x for x in sequence)
+    # Get items from the generator and output a single value
     return reduce(lambda a, b: a + b, squares)
 ~~~
 {: .language-python}
@@ -622,8 +628,8 @@ The code may look like:
 from functools import reduce
 
 def sum_of_squares(sequence):
-    integers = [int(x) for x in sequence]
-    squares = [x * x for x in integers]
+    integers = (int(x) for x in sequence)
+    squares = (x * x for x in integers)
     return reduce(lambda a, b: a + b, squares)
 ~~~
 {: .language-python}
@@ -651,8 +657,8 @@ To do so, we may filter out certain elements and have:
 from functools import reduce
 
 def sum_of_squares(sequence):
-    integers = [int(x) for x in sequence if x[0] != '#']
-    squares = [x * x for x in integers]
+    integers = (int(x) for x in sequence if x[0] != '#')
+    squares = (x * x for x in integers)
     return reduce(lambda a, b: a + b, squares)
 ~~~
 {: .language-python}
@@ -662,16 +668,20 @@ def sum_of_squares(sequence):
 Finally, we will look at one last aspect of Python where functional programming is coming handy.
 As we have seen in the
 [episode on parametrising our unit tests](../22-scaling-up-unit-testing/index.html#parameterising-our-unit-tests),
-a decorator can take a function, modify/decorate it, then return the resulting function.
+a decorator can take a function, modify/wrap it, then return the resulting function.
 This is possible because Python treats functions as first-class objects
 that can be passed around as normal data.
 Here, we discuss decorators in more detail and learn how to write our own.
 Let's look at the following code for ways on how to "decorate" functions.
 
 ~~~
-def with_logging(func):
+# wraps is a special decorator which copies metadata, such as name and docs, to a new function
+from functools import wraps
 
+def with_logging(func):
     """A decorator which adds logging to a function."""
+
+    @wraps(func)
     def inner(*args, **kwargs):
         print("Before function call")
         result = func(*args, **kwargs)
@@ -767,8 +777,10 @@ and can even make multiple decorated versions using different decorators.
 > >
 > > ~~~
 > > import time
+> > from functools import wraps
 > >
 > > def profile(func):
+> >     @wraps(func)
 > >     def inner(*args, **kwargs):
 > >         start = time.process_time_ns()
 > >         result = func(*args, **kwargs)
