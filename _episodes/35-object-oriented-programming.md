@@ -297,7 +297,7 @@ We can achieve this by overriding the `__str__` method of our class.
 ~~~
 ...
     def __str__(self):
-      return str(self.obj_id)
+      return f"<Varaible ID={self.obj_id}>"
 
 
 star = Variable(obj_id')
@@ -306,7 +306,7 @@ print(star)
 {: .language-python}
 
 ~~~
-1405624461041897445
+<Variable ID=1405624461041897445>
 ~~~
 {: .output}
 
