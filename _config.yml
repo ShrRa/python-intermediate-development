@@ -7,7 +7,7 @@
 # dc: Data Carpentry
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
-carpentry: "incubator"
+carpentry: "none"
 
 # Overall title for pages.
 title: "Intermediate Python for Astronomical Software Development"
