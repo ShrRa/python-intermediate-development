@@ -165,7 +165,7 @@ it interacts and obtains the packages from the central repository called
 > packages. Another case when `conda` is more convenient is when you need to create many environments
 > with different versions of Python. Instead of installing the needed Python version manually,
 > with `conda` you can do it with a one-liner:
-> > ~~~
+> ~~~
 > $ conda create -n envname python=*.** 
 > ~~~
 > {: .language-bash}
