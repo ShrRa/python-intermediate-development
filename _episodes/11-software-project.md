@@ -160,16 +160,19 @@ total 12
 ~~~
 {: .language-bash}
 
-Directory `data` contains two files with the lightcurves coming from two instruments, Kepler and LSST:
+Directory `data` contains three files with the lightcurves coming from two instruments, Kepler and LSST:
 ~~~
 $ cd ~/InterPython_Workshop_Example/data
 $ ls -l
 total 24008
 -rw-rw-r-- 1 alex alex 23686283 Jan 10 20:29 kepler_RRLyr.csv
 -rw-rw-r-- 1 alex alex   895553 Jan 10 20:29 lsst_RRLyr.pkl
+-rw-rw-r-- 1 alex alex   895553 Jan 10 20:29 lsst_RRLyr_protocol_4.pkl
 ...
 ~~~
 {: .language-bash}
+The `lsst_RRLyr_protocol_4.pkl` file contains the same data as `lsst_RRLyr.pkl`, but it's saved 
+using an older data protocol, compatible with older versions of the packages we'll be using.
 
 > ## Exercise: Have a Peek at the Data
 > Which command(s) would you use to list the contents or a first few lines of `data/kepler_RRLyr.csv` file?
