@@ -620,4 +620,11 @@ work well with the rest of the code (and not just in isolation).
 We talk more about different types of code testing in one of the following episodes.
 {: .testimonial}
 
+> ## Practice branching without a repository
+> Understanding how git navigates branches and commits can be tricky. You can use an interactive
+> [visual simulator] (https://learngitbranching.js.org/) to master most of the common tasks, such as
+> switching between branches, reverting your repository to the earlier state, browsing the history of
+> a single file and so on, and get a better understanding of git under the hood.
+{: .callout}
+
 {% include links.md %}
