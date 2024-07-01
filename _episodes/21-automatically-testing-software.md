@@ -126,6 +126,7 @@ from two sources: the Kepler Space Telescope and LSST Data Preview 0.
 > > 5. Selecting light curves for a single object
 > > 6. Trying the model.py functions
 > > 7. Test development
+> > 
 > > If we need something else, we can always add it later.
 > > 
 > {: .solution}
