@@ -136,7 +136,7 @@ While there are pros and cons for using each of the above,
 all will do the job of managing Python virtual environments for you
 and it may be a matter of personal preference which one you go for.
 In this course, we will use `venv` to create and manage our virtual environment
-(which is the preferred way for Python 3.3+).
+(which is the default virtual environment manager for Python 3.3+). 
 
 ### Managing External Packages
 
@@ -160,7 +160,31 @@ it interacts and obtains the packages from the central repository called
 > So, you can use `conda` for both tasks instead of using `venv` and `pip`.
 > However, there are some differences in the way `pip` and `conda` work.
 > Quoting Jake VanderPlas, "`pip` installs _python_ packages in any environment.
-> `conda` installs _any_ package in `conda` environments. Here is [a great intro](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) into the topic.
+> `conda` installs _any_ package in `conda` environments. If your project is purely Python,
+> `venv` is a cleaner and more lightweight tool. `conda` is more convenient if you need to install non-Python
+> packages. Another case when `conda` is more convenient is when you need to create many environments
+> with different versions of Python. Instead of installing the needed Python version manually,
+> with `conda` you can do it with a one-liner:
+> > ~~~
+> $ conda create -n envname python=*.** 
+> ~~~
+> {: .language-bash}
+> Here is [more in-depth analysis](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) of the topic.
+> 
+> If you have `conda` installed on your PC,
+> make sure to deactivate `conda` environments before using `venv`
+> ~~~
+> $ conda deactivate
+> ~~~
+> {: .language-bash}
+> While you can, in principle, have both `conda` and `venv` virtual environments activated,
+> you should avoid this situation as it is likely to produce issues. The names of the active
+> environments are listed in parenthesis before your current location path, so if there are two
+> environments listed, deactivate one of them.
+> ~~~
+> (conda_base) (venv) alex@Serenity:/mnt/Data/Work/GitHub/InterPython_Workshop_Example$
+> ~~~
+> {: .output}
 {: .callout}
 
 ### Many Tools for the Job
