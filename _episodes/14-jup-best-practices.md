@@ -62,6 +62,11 @@ the most important rules of keeping your notebooks in a good condition:
    by using the drop-down menu in the instrumental panel at the top of the notebook tab.
 5. **Keep it short**. Keep your notebooks short. There is no hard rule, but constraining a notebook to a hundred of cells is 
    a good idea. If your notebook is longer than that, make sure that you follow the rule of 'One notebook - one task'.
+6. **Keep an eye on performance**. If your notebook contains pieces of code that are computationally
+    expensive, work on a small representative sample of the data instead. When the code is ready, convert it into 
+    an executable `.py` file and launch it from terminal. It will help you
+    to avoid situations when the result of a long computation is lost due to the IDE crash, and also it will make it possible
+    to launch your analysis on the machines where Jupyter Lab is not available, e.g. on a remote server.
 
 > ## Jupyter Lab Table of Contents
 > The benefit of using multi-level headers for sections and subsections is that Jupyter Lab uses them for creating
@@ -83,18 +88,12 @@ the most important rules of keeping your notebooks in a good condition:
 > >    inspection of the datasets and visialization of a light curve, put all imports into the corresponding section and move the variables
 > >    that we are likely to use in different sections to the 'Params' section
 > >    (in our case it can be `plot_filter_labels`, `plot_filter_colors` and `plot_filter_symbols`). 
-> > 5. **Keep it short**. Since our notebook has less than a hundred cells, for now we don't have this problem.
-> > 6. **Utilize Markdown cells**. Give a brief description for each section (you can put it in the same cell as the headers).
+> > 4. **Keep it short**. Since our notebook has less than a hundred cells, for now we don't have this problem.
+> > 5. **Utilize Markdown cells**. Give a brief description for each section (you can put it in the same cell as the headers).
 > >    Use some formatting, e.g. in the 'Dataset inspection' section create a table listing the number of objects in current versions of
 > >    each of the datasets.
 > {: .solution}
 {: .challenge}
-
-6. **Keep an eye on performance**. If your notebook contains pieces of code that are computationally
-   expensive, work on a small representative sample of the data instead. When the code is ready, convert it into 
-   an executable `.py` file and launch it from terminal. It will help you
-   to avoid situations when the result of a long computation is lost due to the IDE crash, and also it will make it possible
-   to launch your analysis on the machines where Jupyter Lab is not available, e.g. on a remote server.
 
 > ## What about the code that has to be executed only once, and then skipped?
 > Let's say you have some code that has to be executed only once, and in the next executions of the notebook
