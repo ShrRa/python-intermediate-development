@@ -163,8 +163,9 @@ The [Jupyter Lab interface](https://jupyterlab.readthedocs.io/en/stable/user/int
 > $ gedit /home/alex/.jupyter/jupyter_server_config.py 
 > ~~~
 > {: .language-bash}
-> and find `c.ContentsManager.allow_hidden` parameter. By default it is set to `False`,
-> so you need to change it to `True` and save the file.
+> and find `c.ContentsManager.allow_hidden` parameter. By default it is commented out
+> and set to `False`,
+> so you need to uncomment it and change its value to `True`, and then save the file.
 > 
 > After that go to the Jupyter Lab window and choose `View > Show hidden files`, and hidden files will be available
 > through the Jupyter Lab file browser. It is handy when you need to edit some hidden configuration files
