@@ -62,59 +62,59 @@ the most important rules of keeping your notebooks in a good condition:
    by using the drop-down menu in the instrumental panel at the top of the notebook tab.
 5. **Keep it short**. Keep your notebooks short. There is no hard rule, but constraining a notebook to a hundred of cells is 
    a good idea. If your notebook is longer than that, make sure that you follow the rule of 'One notebook - one task'.
-6. **Keep an eye on performance**. If your notebook contains pieces of code that are computationally
+
+    > ## Jupyter Lab Table of Contents
+    > The benefit of using multi-level headers for sections and subsections is that Jupyter Lab uses them for creating
+    > the Table of Contents, which can be accesses from the collapsible left side-bar. With this panel, you can quickly evaluate the
+    > structure of your notebook, go to any subsection or execute all the cells under the selected header.
+    > ![Using the Table of Contents to execute cells in a selected section](../fig/13_jupBestPractice_2_ToC.png){: .image-with-shadow width="700px" }
+    > <p style="text-align: center;">Using the Table of Contents to execute cells in a selected section</p>
+    {: .callout}
+    > ## Fix the structure of the 'light-curve-analysis.ipynb' notebook
+    > Go through the best practices listed above one by one and improve the structure of the `light-curve-analysis.ipynb`
+    > notebook.
+    > > ## Solution
+    > > Let's go through the recommendations one by one.
+    > > 1. **Set the objective**. Right now the objective of the notebook is phrased in a generic way. We can rephrase it into, e.g.
+    > >    'Inspect the sizes and visualize light curves from the LSST and Kepler RR Lyrae datasets.'
+    > > 2. **One notebook - one task**. Since for now our notebook is small, we can leave it as it is. However, potentially we could
+    > >    have put visualization into a separate notebook.
+    > > 3. **Structure first**. Currently the structure of the notebook is not well-defined. Add headers for the sections dedicated to the
+    > >    inspection of the datasets and visialization of a light curve, put all imports into the corresponding section and move the variables
+    > >    that we are likely to use in different sections to the 'Params' section
+    > >    (in our case it can be `plot_filter_labels`, `plot_filter_colors` and `plot_filter_symbols`). 
+    > > 4. **Keep it short**. Since our notebook has less than a hundred cells, for now we don't have this problem.
+    > > 5. **Utilize Markdown cells**. Give a brief description for each section (you can put it in the same cell as the headers).
+    > >    Use some formatting, e.g. in the 'Dataset inspection' section create a table listing the number of objects in current versions of
+    > >    each of the datasets.
+    > {: .solution}
+    {: .challenge}
+
+    > ## What about the code that has to be executed only once, and then skipped?
+    > Let's say you have some code that has to be executed only once, and in the next executions of the notebook
+    > it has to be skipped. Such situations often arise during data pre-processing, when some data has to be downloaded
+    > or cleaned from NaNs only once, and in the subsequent executions of the notebook loaded from the saved copy.
+    > Taking these pieces of code into a separate notebook is not always convenient, and using comments to make this code inactive
+    > makes your notebook hard to understand in the future. A good way to handle such situations is
+    > to use boolean flags to indicate which steps have to be executed, and which
+    > should be skipped. By storing these flags in the 'Parameters' section you can quickly see the current state of your work,
+    > and turn on and off different steps of the data processing as needed.
+    > ![Using boolean flags to indicate parts of the code that has to be skipped](../fig/13_jupBestPractice_3_flags.png){: .image-with-shadow width="700px" }
+    > <p style="text-align: center;">Using boolean flags to indicate parts of the code that has to be skipped</p>
+    {: .callout}
+   
+7. **Keep an eye on performance**. If your notebook contains pieces of code that are computationally
     expensive, work on a small representative sample of the data instead. When the code is ready, convert it into 
     an executable `.py` file and launch it from terminal. It will help you
     to avoid situations when the result of a long computation is lost due to the IDE crash, and also it will make it possible
-    to launch your analysis on the machines where Jupyter Lab is not available, e.g. on a remote server.
-
-> ## Jupyter Lab Table of Contents
-> The benefit of using multi-level headers for sections and subsections is that Jupyter Lab uses them for creating
-> the Table of Contents, which can be accesses from the collapsible left side-bar. With this panel, you can quickly evaluate the
-> structure of your notebook, go to any subsection or execute all the cells under the selected header.
-> ![Using the Table of Contents to execute cells in a selected section](../fig/13_jupBestPractice_2_ToC.png){: .image-with-shadow width="700px" }
-> <p style="text-align: center;">Using the Table of Contents to execute cells in a selected section</p>
-{: .callout}
-> ## Fix the structure of the 'light-curve-analysis.ipynb' notebook
-> Go through the best practices listed above one by one and improve the structure of the `light-curve-analysis.ipynb`
-> notebook.
-> > ## Solution
-> > Let's go through the recommendations one by one.
-> > 1. **Set the objective**. Right now the objective of the notebook is phrased in a generic way. We can rephrase it into, e.g.
-> >    'Inspect the sizes and visualize light curves from the LSST and Kepler RR Lyrae datasets.'
-> > 2. **One notebook - one task**. Since for now our notebook is small, we can leave it as it is. However, potentially we could
-> >    have put visualization into a separate notebook.
-> > 3. **Structure first**. Currently the structure of the notebook is not well-defined. Add headers for the sections dedicated to the
-> >    inspection of the datasets and visialization of a light curve, put all imports into the corresponding section and move the variables
-> >    that we are likely to use in different sections to the 'Params' section
-> >    (in our case it can be `plot_filter_labels`, `plot_filter_colors` and `plot_filter_symbols`). 
-> > 4. **Keep it short**. Since our notebook has less than a hundred cells, for now we don't have this problem.
-> > 5. **Utilize Markdown cells**. Give a brief description for each section (you can put it in the same cell as the headers).
-> >    Use some formatting, e.g. in the 'Dataset inspection' section create a table listing the number of objects in current versions of
-> >    each of the datasets.
-> {: .solution}
-{: .challenge}
-
-> ## What about the code that has to be executed only once, and then skipped?
-> Let's say you have some code that has to be executed only once, and in the next executions of the notebook
-> it has to be skipped. Such situations often arise during data pre-processing, when some data has to be downloaded
-> or cleaned from NaNs only once, and in the subsequent executions of the notebook loaded from the saved copy.
-> Taking these pieces of code into a separate notebook is not always convenient, and using comments to make this code inactive
-> makes your notebook hard to understand in the future. A good way to handle such situations is
-> to use boolean flags to indicate which steps have to be executed, and which
-> should be skipped. By storing these flags in the 'Parameters' section you can quickly see the current state of your work,
-> and turn on and off different steps of the data processing as needed.
-> ![Using boolean flags to indicate parts of the code that has to be skipped](../fig/13_jupBestPractice_3_flags.png){: .image-with-shadow width="700px" }
-> <p style="text-align: center;">Using boolean flags to indicate parts of the code that has to be skipped</p>
-{: .callout}    
-   
-7. **Reuse your code wisely**. The code that you use more than once has to be turned into functions.
+    to launch your analysis on the machines where Jupyter Lab is not available, e.g. on a remote server.   
+8. **Reuse your code wisely**. The code that you use more than once has to be turned into functions.
    This recommendation is applicable in all situations, not only when you use notebooks.
-8. **Package your code**. It is convenient to use Jupyter Lab for developing your code, however, once it is
+9. **Package your code**. It is convenient to use Jupyter Lab for developing your code, however, once it is
    ready and tested, you should extract your classes and functions into `.py` files and then turn it into a
    Python package. This allows you to use this code again across multiple notebooks, in other IDEs
    or from command line. In the next few days we will talk more about how to package your code.
-9. **Use 'Restart and Run All' often**. Executing cells out of order is one of the main source of errors when developing code
+10. **Use 'Restart and Run All' often**. Executing cells out of order is one of the main source of errors when developing code
    in Jupyter Lab. For this reason, make a habit of regularly using the 'Restart and Run All' button, that will restart your kernel,
    delete all stored variables and execute all cells in the top-down order. Always do it before
    saving the notebook and pushing it into a Git repository. This habit greatly improves the reproducibility of your notebooks.
