@@ -124,6 +124,56 @@ The [Jupyter Lab interface](https://jupyterlab.readthedocs.io/en/stable/user/int
    will vary depending on which kernels and programming languages you have installed. When you open a Notebook or a file, it will appear in a separate tab in this area.
 4. In the right collapsible sidebar you can access the notebooks' Properties Manager and Debugger, which can be used for inspecting the variables and managing Breakpoints.
 
+> ## Making Jupyter Lab show hidden files
+> By default, Jupyter Lab file manager does not show hidden files. 
+> If you prefer to change that, you need to enable a corresponding option in Jupyter Lab configuration file. In the terminal run:
+> ~~~
+> $ jupyter --paths
+> ~~~
+>  {: .language-bash}
+> ~~~
+> config:
+>     /home/alex/.jupyter
+>     /mnt/Data/Work/GitHub/InterPython_Workshop_Example/venv/etc/jupyter
+>     /usr/local/etc/jupyter
+>     /etc/jupyter
+> data:
+>     /home/alex/.local/share/jupyter
+>     /mnt/Data/Work/GitHub/InterPython_Workshop_Example/venv/share/jupyter
+>     /usr/local/share/jupyter
+>     /usr/share/jupyter
+> runtime:
+>     /home/alex/.local/share/jupyter/runtime
+> ~~~
+>  {: .output}
+> This command lists the folders in which Jupyter will look for configuration files, ordered by precedence.
+> In all likelyhood, you already have a config file called `jupyter_server_config.py` in the upmost folder:
+> ~~~
+> $ ls -l /home/alex/.jupyter
+> ~~~
+>  {: .language-bash}
+> ~~~
+> total 84
+> -rw-rw-r-- 1 alex alex 69714 Jul  1 12:38 jupyter_server_config.py
+> drwxrwxr-x 4 alex alex  4096 Feb  4 14:28 lab
+> ...
+> ~~~
+>  {: .output}
+> If not, you can generate it by typing:
+> ~~~
+> $ jupyter server --generate-config
+> ~~~
+> {: .language-bash}
+> Next, open it with any text editor, for example:
+> > ~~~
+> $ gedit /home/alex/.jupyter/jupyter_server_config.py 
+> ~~~
+> {: .language-bash}
+> and find `c.ContentsManager.allow_hidden` parameter. By default it is set to `False`,
+> so you need to change it to `True` and save the file.
+> After that go to the Jupyter Lab window and choose `View > Show hidden files`. 
+{: .callout}
+
 ### Opening a Software Project
 In the left sidebar, open the `File Browser` and look through the files present here. You can inspect the `requirements.txt` file, where we saved the list 
 of packages installed in our virtual environment, and `README.md`, containing some basic information about the project. Later we will add more information to
