@@ -237,7 +237,7 @@ $ git add .gitignore requirements.txt
 Now we can commit them to the local repository with:
 
 ~~~
-$ git commit -m "Initial commit of requirements.txt. Ignoring virtual env. folder."
+$ git commit -m "Add requirements.txt. Ignore venv folders."
 ~~~
 {: .language-bash}
 
