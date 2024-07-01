@@ -162,14 +162,15 @@ it interacts and obtains the packages from the central repository called
 > Quoting Jake VanderPlas, "`pip` installs _python_ packages in any environment.
 > `conda` installs _any_ package in `conda` environments. If your project is purely Python,
 > `venv` is a cleaner and more lightweight tool. `conda` is more convenient if you need to install non-Python
-> packages. Another case when `conda` is more convenient is when you need to create many environments
+> packages. Here is [more in-depth analysis](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) of the topic.
+> 
+> Another case when `conda` is more convenient is when you need to create many environments
 > with different versions of Python. Instead of installing the needed Python version manually,
 > with `conda` you can do it with a one-liner:
 > ~~~
 > $ conda create -n envname python=*.** 
 > ~~~
 > {: .language-bash}
-> Here is [more in-depth analysis](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) of the topic.
 > 
 > If you have `conda` installed on your PC,
 > make sure to deactivate `conda` environments before using `venv`
