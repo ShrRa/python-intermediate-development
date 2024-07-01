@@ -126,7 +126,8 @@ the most important rules of keeping your notebooks in a good condition:
 > There is an old recommendation to always use `Restart Kernel and Clear Outputs of All Cells`
 > before committing the notebook into a Git repository. This recommendation comes from the fact that
 > native Git tools for comparing different versions of the files (`git diff`) do not handle `.ipynb` files well.
-> Plots in the outputs cause especially inconvenient.
+> Plots in the outputs are especially inconvenient, since they will show up as human-unreadable strings (which is what images
+> are when you try to open them via text editor).
 > However, `git diff` in general isn't suitable for investigating changes in any files that are not, in essence, plain
 > text. More so, clearing the outputs of the notebooks after you finished your work makes it impossible to e.g.
 > use the notebook for a spontaneous presentation or demonstration of the results. The solution to this problem is
