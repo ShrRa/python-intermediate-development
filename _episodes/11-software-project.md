@@ -91,8 +91,9 @@ and then obtain a local copy of that project (from your GitHub) on your machine.
 > > 1. Find the SSH URL of the software project repository to clone from your GitHub account.
 > > Make sure you do not clone the original template repository but rather your own copy,
 > > as you should be able to push commits to it later on.
-> > Also make sure you select the **SSH tab** and not the **HTTPS** one -
-> > you'll be able to clone with HTTPS, but not to send your changes back to GitHub!
+> > Also make sure you select the **SSH tab** and not the HTTPS one. These two protocols
+> > implement different security measures, and since 2021 GitHub offers full support only for the SSH cloning;
+> > namely, you won't be able to send your changes to the repository if you use HTTPS method.
 > >
 > > ![URL to clone the repository in GitHub](../fig/11_5_soft_proj_repo.png){: .image-with-shadow width="800px" }
 > >
