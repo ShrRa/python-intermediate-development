@@ -134,16 +134,10 @@ The [Jupyter Lab interface](https://jupyterlab.readthedocs.io/en/stable/user/int
 > ~~~
 > config:
 >     /home/alex/.jupyter
->     /mnt/Data/Work/GitHub/InterPython_Workshop_Example/venv/etc/jupyter
->     /usr/local/etc/jupyter
->     /etc/jupyter
+>     ...
 > data:
 >     /home/alex/.local/share/jupyter
->     /mnt/Data/Work/GitHub/InterPython_Workshop_Example/venv/share/jupyter
->     /usr/local/share/jupyter
->     /usr/share/jupyter
-> runtime:
->     /home/alex/.local/share/jupyter/runtime
+>     ...
 > ~~~
 >  {: .output}
 > This command lists the folders in which Jupyter will look for configuration files, ordered by precedence.
