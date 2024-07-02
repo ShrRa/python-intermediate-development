@@ -113,7 +113,7 @@ from two sources: the Kepler Space Telescope and LSST Data Preview 0.
 
 > ## Don't forget about the best practices
 >
-> Following the best practices from [the corresponding section](/python-intermediate-development/13-jup-best-practices/index.html),
+> Following the best practices from [the corresponding section](/python-intermediate-development/14-jup-best-practices/index.html),
 > let's start with creating a new notebook and drafting its structure.
 > Using headers in the markdown cells, determine the sections of your notebook.
 > 
