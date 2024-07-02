@@ -160,6 +160,7 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > under 10 hours’, this part of the requirement has to be crossed out.
 > If you are going through this materials on your own and don’t have a learning
 > partner, you can use a new business requirement for the LCAnalyzer:
+> 
 > **BR 2:** The software must perform periodic/non-periodic classification of all variable sources in the LSST Data Release.
 > 
 > > ## Solution
