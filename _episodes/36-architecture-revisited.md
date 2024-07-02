@@ -63,7 +63,7 @@ The `main` function is then called within the `if` statement `__name__ == "__mai
 after some other actions have been performed
 (usually the parsing of command-line arguments, which will be explained below).
 `__name__` is a special dunder variable which is set,
-along with a number of other special dunder variables,
+along with a number of other special dunder ("double underscore") variables,
 by the python interpreter before the execution of any code in the source file.
 What value is given by the interpreter to `__name__` is determined by
 the manner in which it is loaded. 
@@ -151,12 +151,13 @@ parser.add_argument(
 ~~~
 {: .language-python}
 
-Here we have defined what the argument will be called (`'infiles'`) when it is read in
+Here we have defined what the argument will be called (`'infile'`) when it is read in
 and a help string for the user
 (`help='Input CSV or PKL file containing LSST light curves'`).
 
 You can add as many arguments as you wish,
-and these can be either mandatory (as the one above) or optional.
+and these can be either mandatory (as the one above) or optional (by convention, optional arguments 
+are preceded with double-dashes).
 Most of the complexity in using `argparse` is in adding the correct argument options,
 and we will explain how to do this in more detail below.
 
@@ -167,7 +168,7 @@ args = parser.parse_args()
 ~~~
 {: .language-python}
 
-This returns an object (that we've called `arg`) containing all the arguments requested.
+This returns an object (that we've called `args`) containing all the arguments requested.
 These can be accessed using the names that we have defined for each argument,
 e.g. `args.infile` would return the filenames that have been input.
 
@@ -184,7 +185,7 @@ and ensuring that there's a way to request this view when running the program.
 The changes we need to make here are that the `main` function
 needs to be able to direct us to the view we've requested -
 and we need to add to the command line interface - the controller -
-the necessary data to drive the new view.
+the data necessary to drive the new view.
 
 ~~~
 # file: lc-package.py
