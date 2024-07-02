@@ -57,7 +57,7 @@ Depending on the project, going through the SDLC stages only once and in sequent
 
 For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects, sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
 
-![Big Bang SDLC model](../fig/34_requirements_BigBang.png){: .image-with-shadow width="800px"}
+![Big Bang SDLC model](../fig/34_requirements_BigBang.png){: .image-with-shadow width="500px"}
 
 ## What Comes After the Big Bang (Model)
 
