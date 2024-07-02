@@ -127,6 +127,8 @@ Such questions are answered with the lowest-level, or solution, requirements, wh
 > 
 > SR 1.1.1: The software must drop NaNs and outlying values before running period finding algorithms.
 > 
+> SR 1.1.2: The software must read light curves in different formats such as .csv, .json, .dat.
+> 
 > **_Solution requirements - non-functional:_**
 > 
 > SR 1.1.1: The software must be able to determine periods for a million sources in under 3 days.

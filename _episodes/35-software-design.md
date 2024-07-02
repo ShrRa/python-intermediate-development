@@ -32,14 +32,14 @@ What should be the overall structure of our software,
 how should all the pieces of functionality fit together,
 and how should we work towards fulfilling this overall design throughout development?
  Similar to the software requirements, the actual implementation and timeline
-of the development process should be documented. One example are the
+of the development process should be documented. One example is the
 [IEEE software design descriptions](https://ieeexplore.ieee.org/document/278258) and as 
 indicated in the requirements episode, an adaption for the [Software taskforce of the Transients and Variable Stars
 LSST Science Collaboration](https://lsst-tvssc.github.io/taskForces/software_task_force.html) 
 can be found under `Documents`.
 
 
-**Software design**, covers some of the following aspects:
+**Software design** covers some of the following aspects:
 
 - **Algorithm design** -
   what method are we going to use to solve the core business/science problem?
@@ -99,19 +99,19 @@ with some new functionalities (more statistical processing, a new view, etc.).
 Let's recall the solution requirements we discussed in the previous episode:
 
 - *Functional Requirements*:
-  - SR1.1.1 (from UR1.1):
-    reading light curves in different formats such as .csv, .json, .dat;
   - SR1.1.2 (from UR1.1):
-    filtering out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
+    read light curves in different formats such as .csv, .json, .dat;
+  - SR1.1.1 (from UR1.1):
+    filter out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
 - *Non-functional Requirements*:
-  - SR1.2.3 (from UR1.2):
-    be able to determine periods for a hunder of light curves in under a minute.
+  - SR1.2.3 (from SR1.1.1):
+    be able to determine periods for at least 230 light curves in under a minute.
     
 ### How Should We Test These Requirements?
 
 Sometimes when we make changes to our code that we plan to test later,
 we find the way we've implemented that change doesn't lend itself well to how it should be tested.
-So what should we do? We could write unit tests. As we have seen before, it is therefore
+So what should we do? We could write unit tests. As we have seen before, it is 
 a good idea to make sure that your software's features are modularised
 and accessible via logical functions. 
 
