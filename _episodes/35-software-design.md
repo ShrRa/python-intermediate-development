@@ -153,15 +153,18 @@ take in order to reach this goal. This method works well for the interface desig
 
 System diagram is an overarching visualization of the major components of the system. 
 It can demonstrate the data flow and use case scenarios, as well as connections to external resources. 
-Creating such a diagram is useful for larger projects.
+Creating such a diagram is useful for larger projects. Below a system diagram taken from 
+the LSST [Data Product Definition Document](https://docushare.lsst.org/docushare/dsweb/Get/LSE-163) illustrates the conceptual design
+of the LSST pipelines for processing images.
 
 ![System diagram of LSST science pipelines](../fig/35_softdesign_system_diagram.png){: .image-with-shadow width="800px"}
-<p style="text-align: center;">System diagram of the conceptual design of LSST science pipelines for imaging processing. 
-Taken from the LSST [Data Product Definition Document](https://docushare.lsst.org/docushare/dsweb/Get/LSE-163). 
-Before knowing anything about how we are 
-going to implement science pipelines, we outline that there will be eight major and largely 
-independent pipelines, and we have information about which connections to the external 
+<p style="text-align: center;">
+  System diagram of the conceptual design of LSST science pipelines for imaging processing. 
+Without imposing any constraints on the implementation of the science pipelines, 
+  this diagram outlines that there will be eight major and largely 
+independent pipelines, and gives information about which connections to the external 
 databases are needed and which output catalogs will be produced at each stage.</p>
+
 
 ### Class diagram
 
