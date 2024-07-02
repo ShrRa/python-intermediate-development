@@ -57,13 +57,13 @@ Depending on the project, going through the SDLC stages only once and in sequent
 
 For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects, sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
 
-![Big Bang SDLC model](../fig/34_requrements_BigBang.png){: .image-with-shadow width="800px"}
+![Big Bang SDLC model](../fig/34_requirements_BigBang.png){: .image-with-shadow width="800px"}
 
 ## What Comes After the Big Bang (Model)
 
 In industry, one of the most popular SDLCs is Agile. This approach assumes that all stages of the life cycle are performed in iterations, or time-limited sprints (usually 1-4 weeks), with each sprint having a well-defined and relatively small goal (such as implementation of a single feature). This methodology aims to be flexible enough to incorporate requirements as they appear, and at the same time strict enough to not skip the requirements analysis altogether. 
 
-![Agile SDLC model](../fig/34_requrements_agile.png){: .image-with-shadow width="800px"}
+![Agile SDLC model](../fig/34_requirements_agile.png){: .image-with-shadow width="800px"}
 
 Let's assume that you started writing the LCAnalyzer as a small script for a quick data exploration, 
 but now new collaborators join your project, and they will need some additional functionality. 
