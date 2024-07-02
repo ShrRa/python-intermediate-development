@@ -235,7 +235,7 @@ and link to the commit in question.
 ![Referencing comments and commits in GitHub](../fig/github-reference-comments-commits.png){: .image-with-shadow width="700px"}
 
 > ## Exercise: Collaborative Traning!
-> following the organizers' instructions, go into breakout rooms. Share your GitHub accounts
+> Following the organizers' instructions, go into breakout rooms. Share your GitHub accounts
 > with each other, and spend about 10 minutes creating issues for each other's workshop project
 > repositories. The issues may include missing or incomplete docstrings, structure of the notebooks,
 > lacking unit tests and so on. When appropriate, use markdown formatting for making your issues
@@ -247,6 +247,7 @@ and link to the commit in question.
 >
 > Pick one of the smaller issues and create a commit to fix it. Use issue or commit referencing to
 > link them and close the issue as completed.
+> 
 > Time: 25 mins
 {: .challenge}
 
