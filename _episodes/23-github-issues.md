@@ -1,7 +1,7 @@
 ---
-title: "Managing a Collaborative Software Project"
+title: "Github Issues and Collaborative Development"
 teaching: 15
-exercises: 15
+exercises: 30
 questions:
 - "How can we keep track of identified issues and the list of tasks the team has to do?"
 - "How can we communicate within a team on code-related issues and share responsibilities?"
