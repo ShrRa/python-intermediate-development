@@ -1,7 +1,7 @@
 ---
 title: "Software Requirements"
 teaching: 15
-exercises: 5
+exercises: 20
 questions:
 - "Where do we start when beginning a new software project?"
 - "How can we capture and organise what is required for software to function as intended?"
@@ -16,129 +16,101 @@ keypoints:
 - "Consider the expected longevity of any code before you write it."
 ---
 
-The requirements of our software are the basis on which the whole project rests -
-if we get the requirements wrong, we'll build the wrong software.
-However, it's unlikely that we'll be able to determine all of the requirements upfront.
-Especially when working in a research context,
-requirements are flexible and change as we develop our software. While there are 
-guidelines for preparing and carrying out a requirements analysis (e.g. a
-comprehensive overview can be found 
-in the [IEEE Guide for Software Requirements Specifications](https://ieeexplore.ieee.org/document/278253)),
-to an unprepared software developer they may seem overly formalized and impractical. 
-However, in the essense, requirements are simply a set of wishes for the software,
-described in an univocal and well-defined terms. Writing requirements it least in some form
-can save you weeks of time.  
-The [Software taskforce of the Transients and Variable Stars
-LSST Science Collaboration](https://lsst-tvssc.github.io/taskForces/software_task_force.html) 
-maintains documents related to various software development aspects including templates
-for software requirements and design documents for the astronomical software.
+Up until now we treated our project as a collection of functional elements. We looked through it line by line to fix style errors and coding conventions, then we looked at separate functions to write unit tests, and then we analyzed its functions to find out how we can rewrite the code using OOP. However, developing software means more than writing code that can perform certain tasks. There are a number of factors that we need to take into account, such as how fast the code will be working, what kind of computational resources it will need, how easy it will be to add new functionality, how convenient it will be to the end user and so on. It is not a trivial task to think about all these factors while writing the code, even for a small project; much more reasonable to think about them in advance. The idea of separating the planning stage from the implementation stage led to the appearance of the concept of Software Development Life Cycle.
 
-## Types of Requirements
+## Software Development Life Cycle (SLDC)
 
-Requirements can be categorised in many ways,
-but at a high level a useful way to split them is into
-*business requirements*,
-*user requirements*,
-and *solution requirements*.
-While this terminology comes from business, we can adapt
-it to the academia reality. Let's take a look at these now.
+Software Development Life Cycle (SLDC) is a methodology that splits the process of software development into a number of stages (usually between four and six):  
 
-### Business Requirements
+- Requirements gathering and analysis: determining what functionality the stakeholders want. For large projects this stage includes user surveys and domain analysis (What functionality already existing similar projects have? What are the unsolved problems of the potential users?). For a small project this step may be as short as writing down a list of desired features;
+- Planning: determining which resources are needed to fulfill the requirements and deciding on how the work process is going to be organized. For large projects it may include decisions to hire more people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it may be as short as deciding which Python libraries will be used;
+- Software design: outlining software architecture. At this stage, the detailed description of how the software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
+- Development/Implementation: writing the code;
+- Testing. This phase includes not only unit testing (which is normally done already at the development stage, especially if Test-Driven Development is used), but also integration testing, performance testing, beta testing (manual) and so on;
+- Deployment: installing the software in the operating environment (which can be very different from the development environment), familiarizing the end users with the software;
+- Maintenance.
 
-Business requirements describe what is needed from the perspective of the organisation,
-and define the strategic path of the project,
-e.g. to embark on a new research area or collaborative partnership.
-These are captured in a Business Requirements Specification.
+Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical for science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
 
-For adapting our research light curve project, example business requirements could include:
+## Life Cycle Models
 
-- BR1: Functionality for analyzing periodic light curves, such as observations of RR Lyrae that we already have;
-- BR2: Functionality for analyzing transient light curves, such as observations of Supernovae Ia;
+Depending on the project, going through the SDLC stages only once and in sequential order is usually not the best idea. What if it becomes clear that you need additional functions after you implemented the first set of features, or if you need to adapt the software for a new operational environment - let's say, migrate it into a cloud?
 
-### User (or Stakeholder) Requirements
+For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects, sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
 
-These define what particular stakeholder groups each expect from an eventual solution,
-essentially acting as a bridge between the higher-level business requirements
-and specific solution requirements.
-These are typically captured in a User Requirements Specification.
+## What Comes After the Big Bang (Model)
 
-For our light curve project,
-they could include:
+In industry, one of the most popular SDLCs is Agile. This approach assumes that all stages of the life cycle are performed in iterations, or time-limited sprints (usually 1-4 weeks), with each sprint having a well-defined and relatively small goal (such as implementation of a single feature). This methodology aims to be flexible enough to incorporate requirements as they appear, and at the same time strict enough to not skip the requirements analysis altogether. 
 
-- UR1.1 (from BR1): a possibility to process light curves from different surveys;
-- UR1.2 (from BR1): support of a period determination algorithm;
+Let's assume that you started writing the LCAnalyzer as a small script for a quick data exploration, but now new collaborators join your project, and they will need some additional functionality. In this situation we can treat our code as a prototype, developed following the Big Bang SDLC model, and we want to continue in a more organized fashion, using Agile-like approach. The first step is to gather requirements.
 
-For the second business requirements, the user requirements can be the following:
+Callout: In case when the requirements aren’t clear from the beginning, starting with a prototype to figure them out is a perfectly valid choice. However, it is important to be ready to throw the prototype away and start again from scratch in case the discovered requirements and constraints reveal that originally chosen architecture is not the most suitable. It is hard to say at what point it’s time to switch from Big Bang-style prototyping to a more organized development methodology, but it’s a good idea to consider this after your code becomes larger than a hundred lines. The larger your prototype, the harder it is to admit that you have to put it aside and the longer it will take to create a new version with a different, more efficient architecture.
 
-- UR2.1 (from BR2): support of a transient event detection algorithm;
-- UR2.2 (from BR2): a possibility to automatically classify SNe types.
+### The first stage of SLDC: Requirements Gathering and Analysis
+
+Software requirements are the answer to a question “what our software is supposed to do”. There is a hierarchy to them: they are usually separated into Business, User/Stakeholder and Solution Requirements.
+
+Business requirements describe what is needed from the perspective of the organization, and define the strategic path of the project, e.g. to embark on a new research area or collaborative partnership. User/Stakeholder requirements define what particular stakeholder groups each expect from an eventual solution, essentially acting as a bridge between the higher-level business requirements and specific solution requirements. Finally, Solution (or product) requirements describe characteristics that software has to have in order to satisfy the stakeholder requirements.
+
+The reasoning behind this hierarchy is that the answer to a question “what our software should do” will depend on who you ask. 
+For example, a PI of a research group when writing a funding proposal will answer this question like this: “this software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public”. Starting the development with this requirement alone will end in a huge disappointment, since formally you can deliver a package that will produce a table with two columns, an object ID and a period estimation, and it won't be enough for a proper scientific analysis. At the same time, it is excellent for estimating the scope of the project: it states the main purpose of the software, what the input data will be and what are the computational constraints. Such a requirement can be considered as a business requirement.
+
+A postdoc who's going to use this software will give a different answer, somewhere along the lines of: “the software must determine the periods with three period-finding algorithms, and it must be able to plot phased light curves and periodograms”. This kind of requirement already gives us something to work with: at the very least we understand that we need to implement:
+
+- three period-finding algorithms;
+- a function for plotting a light curve
+- and a function for plotting a periodogram.
   
-### Solution Requirements
+Each of these items is a user requirement.
 
-Solution (or product) requirements describe characteristics that software has to have in order to
-satisfy the stakeholder requirements. They fall into two key categories:
+Still, if we start the development with those requirements, we’ll encounter a number of uncertainties. For example, what should we do if our light curves contain NaNs or outlying data points? And should the software be able to plot folded light curves for all the millions of periodic sources in the LSST Data Release?
 
-- *Functional requirements* focus on functionalities and features of a solution.
-  For our software, building on our user requirements, e.g.:
-    - SR1.1.1 (from UR1.1):
-      reading light curves in different formats such as .csv, .json, .dat;
-    - SR1.1.2 (from UR1.1):
-      filtering out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
-- *Non-functional requirements* focus on
-  *how* the behaviour of a solution is expressed or constrained,
-  e.g. performance, security, usability, or portability.
-  These are also known as *quality of service* requirements.
-  For our project, e.g.:
-    - SR1.2.3 (from UR1.2):
-      be able to determine periods for a hundred of light curves in under a minute.
+Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories. The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values. The second category is called non-functional requirements, and they define how these features will be implemented. They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than 10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement, we should specify that the software must be able to analyze a million sources in under three days.
 
-This way, the business, user and solution requirements correspond to the different levels of 
-implementation. Knowing the business requirements allows you to design the software in a more efficient way,
-e.g. by keeping in mind that the functionality for loading and pre-processing the light curves has to support not only periodic,
-but also transient light curves. At the same time, solution requirements often determine which tools you are
-going to use (e.g. whether you should take parallelization into account).
+**A hierarchy of requirements:**
+**_Business requirements:_**
+BR 1: The software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public.
+**_User requirements:_**
+UR 1.1: The software must be able to determine periods with Lomb-Scargle, binned means and SuperSmooth period-finding algorithms.
+UR 1.2: The software must be able to plot a phase-folded light curve.
+UR 1.3: The software must be able to plot a periodogram.
+**_Solution requirements - functional:_**
+SR 1.1.1: The software must drop NaNs and outlying values before running period finding algorithms.
+**_Solution requirements - non-functional:_**
+SR 1.1.1: The software must be able to determine periods for a million sources in under 3 days.
+SR 1.2.1: The software must be able to display plots on screen or save them as .png.
 
-#### The Importance of Non-functional Requirements
+### Not all requirements will be implemented.
 
-When considering software requirements,
-it's *very* tempting to just think about the features users need.
-However, many design choices in a software project quite rightly depend on
-the users themselves and the environment in which the software is expected to run,
-and these aspects should be considered as part of the software's non-functional requirements.
+In a perfect world, we would be able to implement all the desired requirements by the time we go to lunch. In reality, we have limited resources, and quite often we have to make sacrifices or risk never finishing the work at all.
 
+After the requirements are written down, it is time to look over them and decide how realistic they are, considering available time and people resources. For this we can use a MoSCoW methodology. MoSCoW is an acronym that stands for Must have, Should have, Could have, and Won't have, and each requirement, after a discussion with the stakeholders, falls into one of these four categories:
 
-> ## Optional Exercise: Requirements for Your Software Project
->
-> Think back to a piece of code or software (either small or large) you've written,
-> or which you have experience using.
-> First, try to formulate one key business requirement,
-> then derive these into one user and then one solution requirement
-> (in a similar fashion to the ones above in *Types of Requirements*).
-{: .challenge}
+- Must Have (MH) - these requirements are critical to the current timebox for it to succeed. Even the inability to deliver just one of these would cause the project to be considered a failure.
+- Should Have (SH) - these are important requirements but not necessary for delivery in the timebox. They may be as important as Must Haves, but there may be other ways to achieve them or perhaps they can be held back for a future development timebox.
+- Could Have (CH) - these are desirable but not necessary, and each of these will be included in this timebox if it can be achieved.
+- Won't Have (WH) - these are agreed to be out of scope for this timebox, perhaps because they are the least important or not critical for this phase of development.
 
+It is also common to plan a sprint in such a way that MH/SH/CH categories took 60%/20%/20% of working time correspondingly. This approach helps to ensure that SH and CH requirements aren’t neglected, and at the same provides enough time cushion to redistribute it if needed.
 
-### Long- or Short-Lived Code?
+Exercise: Collaborative work on requirements.
+Split in pairs and go into breakout rooms. Create a common Google Document. Imagine that you are a PI writing a funding proposal. Think for a few minutes and write down in the document a Business Requirement and subsequent Stakeholder requirements for some kind of software that would be useful in your work.
+Then take each other’s Business Requirements and write down several Solution requirements for this future software. When it’s done, provide each other with feedback on whether you think the Solution requirements will be enough for developing the software you need. Don’t forget about non-functional requirements, and don’t forget that not all requirements are realistic! If the Business Requirement includes ‘do a differential imaging on the whole LSST image dataset for 10 years in under 10 hours’, this part of the requirement has to be crossed out.
+If you are going through this materials on your own and don’t have a learning partner, you can use a new business requirement for the LCAnalyzer:
+BR 2: The software must perform periodic/non-periodic classification of all variable sources in the LSST Data Release.
+Solution:
+User requirements:
+UR 2.1: The software must be able to calculate a reliability score of the found periods for each of the period-finding algorithms.
+UR 2.2: The software must be able to calculate the probability of the source to be variable based on the reliability scores for the obtained periods and on the closeness of the periods determined with different methods.
+UR 2.3: For the sources for which no algorithm produces a reliable period, the software must run a transient event detection algorithm.
+Solution requirements:
+Functional:
+SR 2.1.1: The software must calculate a reliability score of the found period for each of the implemented algorithms. The reliability score must vary from 0 to 1.
+SR 2.2.1: The software must calculate two probability metrics for the source to be variable: one calculated as a median reliability score for the determined periods, and another as a mean deviation of the discovered periods.
+SR 2.3.1: The software must run a transient event detection algorithm for the sources for which no periods were determined, or for which the probability of being variable is below a user-defined threshold.
+Non-functional:
+SR 2.3.2: The software must run a transient event detection algorithms in under 1 second per source. 
 
-Along with requirements, here's something to consider early on.
-You, perhaps with others, may be developing open-source software
-with the intent that it will live on after your project completes.
-It could be important to you that your software is adopted and used by other projects
-as this may help you get future funding.
-It can make your software more attractive to potential users
-if they have the confidence that they can fix bugs that arise or add new features they need,
-if they can be assured that the evolution of the software is not dependant upon
-the lifetime of your project.
-The intended longevity and post-project role of software should be reflected in its requirements -
-particularly within its non-functional requirements -
-so be sure to consider these aspects.
-
-On the other hand, you may want to quickly create some code
-to demonstrate a concept or perform a brief calculation before discarding it.
-But can you be sure you'll never want to use it again?
-Maybe a few months from now you'll realise you need it after all,
-or you'll have a colleague say "I wish I had a..."
-and realise you've already made one.
-A little effort now could save you a lot in the future.
 
 ## From Requirements to Implementation, via Design
 
