@@ -83,9 +83,8 @@ produce, and will it be easy to implement a new output format or user interface
 (e.g. to create an interactive plot or store the calculation results in JSON instead of DAT)? 
 
 Similarly to the hierarchy of the requirements, the design process also has stages,
-with the next stage outlining smaller details than the previous one. This is the 
-‘top-down’ approach that we already mentioned in the ‘Object-Oriented Programming’ 
-episode. For the large project this approach is more common and more efficient than ‘bottom-up’.
+with the next stage outlining smaller details than the previous one. This is the so called
+‘top-down’ approach. For the large project this approach is more common and more efficient than ‘bottom-up’.
 
 Software design process can be split into following phases:
 - **Component design.** At this stage, the general blueprint
