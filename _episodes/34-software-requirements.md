@@ -32,20 +32,21 @@ the appearance of the concept of Software Development Life Cycle.
 Software Development Life Cycle (SLDC) is a methodology that splits the process of software development into a number of stages (usually between four and six):  
 
 - Requirements gathering and analysis: determining what functionality the stakeholders want.
-- For large projects this stage includes user surveys and domain analysis (What functionality a
-- lready existing similar projects have? What are the unsolved problems of the potential users?).
-- For a small project this step may be as short as writing down a list of desired features;
+ For large projects this stage includes user surveys and domain analysis (What functionality 
+already existing similar projects have? What are the unsolved problems of the potential users?).
+ For a small project this step may be as short as writing down a list of desired features;
 - Planning: determining which resources are needed to fulfill the requirements and deciding on how
-- the work process is going to be organized. For large projects it may include decisions to hire more
-- people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it
-- may be as short as deciding which Python libraries will be used;
+ the work process is going to be organized. For large projects it may include decisions to hire more
+ people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it
+ may be as short as deciding which Python libraries will be used;
 - Software design: outlining software architecture. At this stage, the detailed description of how the
-- software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
+ software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
 - Development/Implementation: writing the code;
 - Testing. This phase includes not only unit testing (which is normally done already at the development
-- stage, especially if Test-Driven Development is used), but also integration testing, performance testing, beta testing (manual) and so on;
+ stage, especially if Test-Driven Development is used), but also integration testing, performance testing, 
+beta testing (manual) and so on;
 - Deployment: installing the software in the operating environment (which can be very different from the
-- development environment), familiarizing the end users with the software;
+ development environment), familiarizing the end users with the software;
 - Maintenance.
 
 Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical for science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
