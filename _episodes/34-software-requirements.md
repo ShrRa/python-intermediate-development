@@ -31,12 +31,21 @@ the appearance of the concept of Software Development Life Cycle.
 
 Software Development Life Cycle (SLDC) is a methodology that splits the process of software development into a number of stages (usually between four and six):  
 
-- Requirements gathering and analysis: determining what functionality the stakeholders want. For large projects this stage includes user surveys and domain analysis (What functionality already existing similar projects have? What are the unsolved problems of the potential users?). For a small project this step may be as short as writing down a list of desired features;
-- Planning: determining which resources are needed to fulfill the requirements and deciding on how the work process is going to be organized. For large projects it may include decisions to hire more people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it may be as short as deciding which Python libraries will be used;
-- Software design: outlining software architecture. At this stage, the detailed description of how the software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
+- Requirements gathering and analysis: determining what functionality the stakeholders want.
+- For large projects this stage includes user surveys and domain analysis (What functionality a
+- lready existing similar projects have? What are the unsolved problems of the potential users?).
+- For a small project this step may be as short as writing down a list of desired features;
+- Planning: determining which resources are needed to fulfill the requirements and deciding on how
+- the work process is going to be organized. For large projects it may include decisions to hire more
+- people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it
+- may be as short as deciding which Python libraries will be used;
+- Software design: outlining software architecture. At this stage, the detailed description of how the
+- software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
 - Development/Implementation: writing the code;
-- Testing. This phase includes not only unit testing (which is normally done already at the development stage, especially if Test-Driven Development is used), but also integration testing, performance testing, beta testing (manual) and so on;
-- Deployment: installing the software in the operating environment (which can be very different from the development environment), familiarizing the end users with the software;
+- Testing. This phase includes not only unit testing (which is normally done already at the development
+- stage, especially if Test-Driven Development is used), but also integration testing, performance testing, beta testing (manual) and so on;
+- Deployment: installing the software in the operating environment (which can be very different from the
+- development environment), familiarizing the end users with the software;
 - Maintenance.
 
 Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical for science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
@@ -44,6 +53,7 @@ Each stage of SDLC is a separate discipline with its own practices, standards an
 ## Life Cycle Models
 
 Depending on the project, going through the SDLC stages only once and in sequential order is usually not the best idea. What if it becomes clear that you need additional functions after you implemented the first set of features, or if you need to adapt the software for a new operational environment - let's say, migrate it into a cloud?
+![Waterfall SDLC model](../fig/34_requrements_waterfall.png){: .image-with-shadow width="800px"}
 
 For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects, sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
 
