@@ -10,7 +10,7 @@ objectives:
 - "Explain the difference between functional and non-functional requirements."
 - "Describe some of the different kinds of software and explain how the environment in which software is used constrains its design."
 keypoints:
-- "When writing software used for research, requirements will almost *always* change."
+- "When writing software used for research, the requirements will almost *always* change."
 - "Consider non-functional requirements (*how* the software will behave) as well as functional requirements (*what* the software is supposed to do)."
 - "The environment in which users run our software has an effect on many design choices we might make."
 - "Consider the expected longevity of any code before you write it."
@@ -18,12 +18,14 @@ keypoints:
 
 Up until now we treated our project as a collection of functional elements. We looked through it 
 line by line to fix style errors and coding conventions, then we looked at separate functions to 
-write unit tests, and then we analyzed its functions to find out how we can rewrite the code using OOP. 
-However, developing software means more than writing code that can perform certain tasks. There are a number 
-of factors that we need to take into account, such as how fast the code will be working, what kind of computational 
+write unit tests, and then we analyzed its functions to find out how we can rewrite the code using OOP (Object Oriented Programming). 
+However, designing software that will be both useful and maintainable over the long term 
+means more than writing code that can perform certain tasks. There are a number 
+of factors that we need to take into account, such as how fast the code needs to work, what kind of computational 
 resources it will need, how easy it will be to add new functionality, how convenient it will be to the end user and so on. 
 
-It is not a trivial task to think about all these factors while writing the code, even for a small project; much more 
+It is not a trivial task to think about all these factors while writing the code, even for a small project, and it can 
+be a great deal of work to add functionality retroactively if a piece of software is poorly designed. So it is much more 
 reasonable to think about them in advance. The idea of separating the planning stage from the implementation stage led to 
 the appearance of the concept of Software Development Life Cycle.
 
@@ -33,30 +35,30 @@ Software Development Life Cycle (SLDC) is a methodology that splits the process 
 
 - Requirements gathering and analysis: determining what functionality the stakeholders want.
  For large projects this stage includes user surveys and domain analysis (What functionality 
-already existing similar projects have? What are the unsolved problems of the potential users?).
+is already provided by pre-existing, similar projects? What are the unsolved problems of the potential users?).
  For a small project this step may be as short as writing down a list of desired features;
-- Planning: determining which resources are needed to fulfill the requirements and deciding on how
+- Planning: determining what resources are needed to fulfill the requirements and deciding how
  the work process is going to be organized. For large projects it may include decisions to hire more
  people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it
  may be as short as deciding which Python libraries will be used;
 - Software design: outlining software architecture. At this stage, the detailed description of how the
  software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
 - Development/Implementation: writing the code;
-- Testing. This phase includes not only unit testing (which is normally done already at the development
+- Testing. This phase includes not only unit testing (which is normally done during the development
  stage, especially if Test-Driven Development is used), but also integration testing, performance testing, 
 beta testing (manual) and so on;
 - Deployment: installing the software in the operating environment (which can be very different from the
  development environment), familiarizing the end users with the software;
 - Maintenance.
 
-Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical for science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
+Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical in science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
 
 ## Life Cycle Models
 
 Depending on the project, going through the SDLC stages only once and in sequential order is usually not the best idea. What if it becomes clear that you need additional functions after you implemented the first set of features, or if you need to adapt the software for a new operational environment - let's say, migrate it into a cloud?
 ![Waterfall SDLC model](../fig/34_requrements_waterfall.png){: .image-with-shadow width="500px"}
 
-For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects, sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
+For such situations, different SDLC models exist. The sequential one, when all the stages follow one another only once, is called the Waterfall model, however, nowadays it’s not very common. The way software development is often done in academia, with little to no requirements analysis and planning before the development itself, is called the Big Bang model. While acceptable for short small-scale projects (or prototypes), sticking to this paradigm after the project exceeds a couple of hundred lines of code leads to chaos, computational ineffectiveness and poor maintainability. 
 
 ![Big Bang SDLC model](../fig/34_requirements_BigBang.png){: .image-with-shadow width="500px"}
 
@@ -96,7 +98,7 @@ Business requirements describe what is needed from the perspective of the organi
 The reasoning behind this hierarchy is that the answer to a question “what our software should do” will depend on who you ask. 
 For example, a PI of a research group when writing a funding proposal will answer this question like this: “this software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public”. Starting the development with this requirement alone will end in a huge disappointment, since formally you can deliver a package that will produce a table with two columns, an object ID and a period estimation, and it won't be enough for a proper scientific analysis. At the same time, it is excellent for estimating the scope of the project: it states the main purpose of the software, what the input data will be and what are the computational constraints. Such a requirement can be considered as a business requirement.
 
-A postdoc who's going to use this software will give a different answer, somewhere along the lines of: “the software must determine the periods with three period-finding algorithms, and it must be able to plot phased light curves and periodograms”. This kind of requirement already gives us something to work with: at the very least we understand that we need to implement:
+A postdoc who's going to use this software will give a different answer, somewhere along the lines of: “the software must determine the periods with three period-finding algorithms, and it must be able to plot phased light curves and periodograms”. This kind of requirement gives us something to work with: at the very least we understand that we need to implement:
 
 - three period-finding algorithms;
 - a function for plotting a light curve
@@ -171,8 +173,8 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > **UR 2.1:** The software must be able to calculate a reliability
 > > score of the found periods for each of the period-finding algorithms.
 > >
-> > **UR 2.2:** The software must be able to calculate the probability of the source
-> > to be variable based on the reliability scores for the obtained periods and on
+> > **UR 2.2:** The software must be able to calculate a probability that the source
+> > is variable based on the reliability scores for the obtained periods and on
 > > the closeness of the periods determined with different methods.
 > >
 > > **UR 2.3:** For the sources for which no algorithm produces a reliable period, the
@@ -182,10 +184,10 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > 
 > > **Functional:**
 > > 
-> > **SR 2.1.1:** The software must calculate a reliability score of the found
-> > period for each of the implemented algorithms. The reliability score must vary from 0 to 1.
+> > **SR 2.1.1:** The software must calculate a reliability score of the 
+> > period found by each of the implemented algorithms. The reliability score must vary from 0 to 1.
 > > 
-> > **SR 2.2.1:** The software must calculate two probability metrics for the source to be variable:
+> > **SR 2.2.1:** The software must calculate two probability metrics relating to the variability of the source:
 > > one calculated as a median reliability score for the determined periods, and another
 > > as a mean deviation of the discovered periods.
 > > 
@@ -206,7 +208,7 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 ## From Requirements to Implementation, via Design
 
 In practice, these different types of requirements are sometimes confused and conflated
-when different classes of stakeholder are discussing them, which is understandable:
+when different classes of stakeholders are discussing them, which is understandable:
 each group of stakeholders has a different view of *what is required* from a project.
 The key is to understand the stakeholder's perspective as to
 how their requirements should be classified and interpreted,
