@@ -187,7 +187,7 @@ indicating that debugging mode is active), and then open the debugger right-side
 (also marked with a bug pictogram).
 
 The debugger panel contains five sections:
-- Varaibles. This is the place where all variables, user-defined or not, can be inspected in
+- Variables. This is the place where all variables, user-defined or not, can be inspected in
   all the details. You can switch between the tree view and table view using the buttons in the top right
   corner of this section. The tree view provides you with more information, for example, you can see the full
   list of methods available for this object. However, table view is more concise and simple for understanding,
