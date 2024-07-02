@@ -1,7 +1,7 @@
 ---
 title: "Software Architecture and Design"
 teaching: 15
-exercises: 0
+exercises: 20
 questions:
 - "What should we consider when designing software?"
 - "How can we make sure the components of our software are reusable?"
@@ -25,50 +25,9 @@ Software design, as opposed to software requirements, deals with **how** a proje
 terms of data structures, algorithms and system architecture. Requirements, on the other hand,
 specify **what** must be accomplished.
 
-As a piece of software grows,
-it will reach a point where there's too much code for us to keep in mind at once.
-At this point, it becomes particularly important that the software be designed sensibly.
-What should be the overall structure of our software,
-how should all the pieces of functionality fit together,
-and how should we work towards fulfilling this overall design throughout development?
- Similar to the software requirements, the actual implementation and timeline
-of the development process should be documented. One example are the
-[IEEE software design descriptions](https://ieeexplore.ieee.org/document/278258) and as 
-indicated in the requirements episode, an adaption for the [Software taskforce of the Transients and Variable Stars
-LSST Science Collaboration](https://lsst-tvssc.github.io/taskForces/software_task_force.html) 
-can be found under `Documents`.
-
-
-**Software design**, covers some of the following aspects:
-
-- **Algorithm design** -
-  what method are we going to use to solve the core business/science problem?
-- **Software architecture** -
-  what components will the software have and how will they cooperate?
-- **System architecture** -
-  what other things will this software have to interact with and how will it do this?
-- **UI/UX** (User Interface / User Experience) -
-  how will users interact with the software?
-
-As usual, the sooner you adopt a practice in the lifecycle of your project,
-the easier it will be.
-So we should think about the design of our software from the very beginning,
-ideally even before we start writing code -
-but if you didn't, it's never too late to start.
-
-The answers to these questions will provide us with some **design constraints**
-which any software we write must satisfy.
-For example, a design constraint when writing a mobile app would be
-that it needs to work with a touch screen interface -
-we might have some software that works really well from the command line,
-but on a typical mobile phone there isn't a command line interface that people can access.
-
-
-## Software Architecture
-
-At the beginning of this episode we defined **software architecture**
-as an answer to the question
-"what components will the software have and how will they cooperate?".
+## What is software architecture?
+As soon as we know _what_ our software is supposed to do, we have to find out how it will 
+be doing what it’s doing. This is where **software architecture** comes into play.
 Software engineering borrowed this term, and a few other terms,
 from architects (of buildings) as many of the processes and techniques have some similarities.
 One of the other important terms we borrowed is 'pattern',
@@ -92,45 +51,162 @@ there are many online sources of information about design and architecture patte
 often giving concrete examples of cases where they may be useful.
 One particularly good source is [Refactoring Guru](https://refactoring.guru/design-patterns).
 
-## Addressing New Requirements
+To determine software architecture means to describe which components 
+(modules, classes, functions, databases) are going to be implemented, 
+what are the relations between them, and how they are going to interact 
+with each other, with other software and with the user. 
+Software architecture leads the design and implementation of the software.
+To design the architecture of your software, several things have to be taken into account:
 
-So, let's assume we now want to extend our application 
-with some new functionalities (more statistical processing, a new view, etc.).
-Let's recall the solution requirements we discussed in the previous episode:
+- **Flexibility.** What kind of additional functionality may be included in the future? 
+What kind of architecture allows you to implement new features more easily?
+- **Performance/Scalability.** What are the potential ‘bottlenecks’ of your software
+(e.g. a computationally-expensive calculation, or the necessity to download
+heavy observational data in real time)? Which architecture speeds 
+up these slow parts of the software? (E.g. computationally-expensive 
+calculations may be parallelized and performed on a cluster and its results 
+sent back to your PC; instead of downloading large volumes of the data it may 
+be possible to run the code where the data is stored, e.g. on Rubin Science Platform). 
+If you develop software for multiple users, you need to consider if they’ll 
+need simultaneous access to the same resources.
+- **Portability.** Will this software be launched on other platforms, 
+e.g. on an institute’s cluster or in a cloud?
+- **Maintainability.** How simple is it going to be to test this software? 
+Will its design be clear enough for other developers (e.g. your students) 
+to troubleshoot it when needed? 
+- **Security.** If your software uses proprietary data, how data access 
+rights will be preserved? If you are developing a server-based software 
+for multiple users, how are you going to develop authorization?
+- **Integration with other software and user interfaces.** What kind of data your 
+software may need from other applications? What kind of outputs your software will 
+produce, and will it be easy to implement a new output format or user interface 
+(e.g. to create an interactive plot or store the calculation results in JSON instead of DAT)? 
 
-- *Functional Requirements*:
-  - SR1.1.1 (from UR1.1):
-    reading light curves in different formats such as .csv, .json, .dat;
-  - SR1.1.2 (from UR1.1):
-    filtering out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
-- *Non-functional Requirements*:
-  - SR1.2.3 (from UR1.2):
-    be able to determine periods for a hunder of light curves in under a minute.
-    
-### How Should We Test These Requirements?
+Similarly to the hierarchy of the requirements, the design process also has stages,
+with the next stage outlining smaller details than the previous one. This is the 
+‘top-down’ approach that we already mentioned in the ‘Object-Oriented Programming’ 
+episode. For the large project this approach is more common and more efficient than ‘bottom-up’.
 
-Sometimes when we make changes to our code that we plan to test later,
-we find the way we've implemented that change doesn't lend itself well to how it should be tested.
-So what should we do? We could write unit tests. As we have seen before, it is therefore
-a good idea to make sure that your software's features are modularised
-and accessible via logical functions. 
+Software design process can be split into following phases:
+- **Component design.** At this stage, the general blueprint
+of the software is created. Component design describes separate services, 
+pipelines and modules, and then lists classes and stand-alone functions, 
+together with a rough description on how they are going to interact with each other.
+- **Data design.** At this stage it is determined which data structures will be used.
+- **Interface design.** This stage is for determining public methods of the classes
+and finding out how different components will interact with each other.
+- **Procedural design.** Here specific algorithms within the components are determined.
+  
+## Software Design methods
 
-We could also consider writing unit tests ensuring that the system meets
-our performance requirement, so should we? In short, it's generally considered
-bad practice to use unit tests for this purpose.
-This is because unit tests test *if* a given aspect is behaving correctly,
-whereas performance tests test *how efficiently* it does it.
-Performance testing produces measurements of performance which require a different kind of analysis
-(using _integration_ and _performance_ tests, as well as techniques such as [*code profiling*](https://towardsdatascience.com/how-to-assess-your-code-performance-in-python-346a17880c9f)),
-and require careful and specific configurations of operating environments to ensure fair testing.
-Furthermore, it is important to note that unit testing frameworks are not intended
-for measuring system performance as a whole, as they only test individual units.
-This limitation prevents stakeholders from gaining a comprehensive understanding of
-the system's performance in real-world scenarios.
+There are several ways to go from the list of requirements to software architecture.
 
-The key is to think about which kind of testing should be used
-to check if the code satisfies a requirement,
-but also what you can do to make that code amenable to that type of testing.
+**The noun-in-text.** Write down a short description of the software, 
+and then identify all nouns in the text. The  nouns related to the environment 
+outside of the software are thrown away, and those that mean the same concept are 
+‘merged’. The nouns that are related to the same concepts are grouped together, 
+with one noun in the group being selected as the most representative of the group. 
+This noun usually becomes a class, and the rest of the nouns in the group may become 
+inherited classes or turn out to be good class attributes. This method is applicable even 
+if you have only a general description of the software, so it’s suitable for working on 
+a small project, and it’s especially helpful for the component design stage. 
+It can also be applied on the user or solution requirements - or for writing them.
+
+> ## Exercise: The noon-in-text practice
+>
+> Let’s say that we are starting a new project: we want to develop a package that detects
+> faint structures on the galaxy images. We want the software to be able to read images in
+> different formats and produces a list of detected structures. For each detected structure,
+> the package should produce a corresponding image file that would indicate which pixels
+> belong to the detected faint structure.
+>
+> Using this description of software, apply noun-in-text approach to identify the main components
+> of the software and decide which of the nouns will be classes, which will become attributes and which will be discarded.
+> Think on the uncertainties that arise in the process and on the different possible architectures for this case.
+> 
+> > ## Solution
+> >
+> > The list of nouns will look like this:
+> > _faint structures, galaxy, image, format, list of detected structures,
+> > detected structure, corresponding image file, pixel belonging to the structure_
+> >
+> > Without knowing anything about astronomy, we can presume that our software will have classes
+> >`Image` with attributes `str: format` and `Galaxy: galaxy`, class `Galaxy` with attribute `list: detected_structures`,
+> > and class `FaintStructure` with attribute `image: belonging_pixels`. However, after some consideration we
+> > may realize that there is a number of uncertainties. Does an image always contain one and only one galaxy,
+> > or there may be several galaxies in the image? Does the user pass the list of detected galaxies pictured in the
+> > image before launching faint structure detection, or do we need galaxy detection feature within the package as well?
+> > What are the properties of a detected galaxy - is it defined only by its center coordinates or it has a mask indicating
+> > which pixels belong to which galaxy? Is it possible for a faint structure to be detected without a host galaxy?
+> >
+> > Answering each of these questions results in a new User and Solution requirement.
+> {: .solution}
+> 
+{: .challenge}
+
+**Use case scenarios.** Imagine a potential user of your software, then identify what will be the 
+goal of this user, when running your software, and then write down the steps that the user will need to 
+take in order to reach this goal. This method works well for the interface design stage, however, it is useful for component and data design too.
+
+**Using diagrams.** There are various types of those; we will consider only two: system and class diagrams.
+
+### System diagram
+
+System diagram is an overarching visualization of the major components of the system. 
+It can demonstrate the data flow and use case scenarios, as well as connections to external resources. 
+Creating such a diagram is useful for larger projects.
+
+![System diagram of LSST science pipelines](../fig/35_softdesign_system_diagram.png){: .image-with-shadow width="800px"}
+<p style="text-align: center;">System diagram of the conceptual design of LSST science pipelines for imaging processing. 
+Taken from the LSST [Data Product Definition Document](https://docushare.lsst.org/docushare/dsweb/Get/LSE-163). 
+Before knowing anything about how we are 
+going to implement science pipelines, we outline that there will be eight major and largely 
+independent pipelines, and we have information about which connections to the external 
+databases are needed and which output catalogs will be produced at each stage.</p>
+
+### Class diagram
+
+For a more detailed design description, we can use a class diagram. It depictures classes 
+together with their attributes, methods and relationships (such as composition or inheritance) 
+using a set of conventions called Unified Modeling Language, or [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language). 
+
+![Class diagrams for LCAnalyzer](../fig/35_softdesign_class_diagr3.png){: .image-with-shadow width="800px"}
+<p style="text-align: center;">An example of object model diagrams of two possible implementations of the LCAnalyzer. 
+These implementations have the same functionality, but different architectures. 
+The first example has a single class ‘Dataset’, and its methods perform everything from 
+reading the files to plotting periodograms. It doesn’t create a separate object ‘LightCurve’, 
+but instead stores the data as a table (‘ndarray: data’). Extracting the necessary observational 
+datapoints from the records of this table will be the responsibility of every function that will 
+use them. This architecture is likely to produce a lot of duplicated code and will make adding new 
+functionality difficult, however, it can be computationally effective, if many of the functions 
+can be vectorised (effectively applied to a numeric array in which our light curves are stored).
+
+In the second architecture, we separate functionality related to the dataset as a whole from the 
+features related to the light curves processing. Even more, every LightCurve object has 
+a dictionary where observations in different bands are stored, with Observations being another 
+class. Plotting functions are also put in a separate class and completely independent, which 
+means that we can use them even without having a DataLoader or LightCurve instance. This 
+architecture is better in terms of separation of concerns, more convenient to test and more flexible. </p>
+
+> ## Exercise: Developing class diagram for the Faint Structure Detection software
+>
+> Draw a class diagram for the faint structure detecting software from the previous exercise using pre-defined blocks.
+> Imagine that you realised that you have a new requirement for your software:
+> The user should be able to manually draw a mask (to exclude bright stars, artefacts and so on)
+> that will be applied before the stream detection. What kind of requirement is this?
+> Look at your previous object model diagram. Modify it to add the new feature. Do you encounter any difficulties?
+> Did you have to rework a large part of the architecture to satisfy this new requirement?
+> 
+> > ## Solution
+> >
+> > 
+> {: .solution}
+> 
+{: .challenge}
+
+Exercise: 
+
+
 
 ## Best Practices for 'Good' Software Design
 
