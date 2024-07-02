@@ -16,7 +16,16 @@ keypoints:
 - "Consider the expected longevity of any code before you write it."
 ---
 
-Up until now we treated our project as a collection of functional elements. We looked through it line by line to fix style errors and coding conventions, then we looked at separate functions to write unit tests, and then we analyzed its functions to find out how we can rewrite the code using OOP. However, developing software means more than writing code that can perform certain tasks. There are a number of factors that we need to take into account, such as how fast the code will be working, what kind of computational resources it will need, how easy it will be to add new functionality, how convenient it will be to the end user and so on. It is not a trivial task to think about all these factors while writing the code, even for a small project; much more reasonable to think about them in advance. The idea of separating the planning stage from the implementation stage led to the appearance of the concept of Software Development Life Cycle.
+Up until now we treated our project as a collection of functional elements. We looked through it 
+line by line to fix style errors and coding conventions, then we looked at separate functions to 
+write unit tests, and then we analyzed its functions to find out how we can rewrite the code using OOP. 
+However, developing software means more than writing code that can perform certain tasks. There are a number 
+of factors that we need to take into account, such as how fast the code will be working, what kind of computational 
+resources it will need, how easy it will be to add new functionality, how convenient it will be to the end user and so on. 
+
+It is not a trivial task to think about all these factors while writing the code, even for a small project; much more 
+reasonable to think about them in advance. The idea of separating the planning stage from the implementation stage led to 
+the appearance of the concept of Software Development Life Cycle.
 
 ## Software Development Life Cycle (SLDC)
 
@@ -44,11 +53,25 @@ In industry, one of the most popular SDLCs is Agile. This approach assumes that 
 
 Let's assume that you started writing the LCAnalyzer as a small script for a quick data exploration, but now new collaborators join your project, and they will need some additional functionality. In this situation we can treat our code as a prototype, developed following the Big Bang SDLC model, and we want to continue in a more organized fashion, using Agile-like approach. The first step is to gather requirements.
 
-Callout: In case when the requirements aren’t clear from the beginning, starting with a prototype to figure them out is a perfectly valid choice. However, it is important to be ready to throw the prototype away and start again from scratch in case the discovered requirements and constraints reveal that originally chosen architecture is not the most suitable. It is hard to say at what point it’s time to switch from Big Bang-style prototyping to a more organized development methodology, but it’s a good idea to consider this after your code becomes larger than a hundred lines. The larger your prototype, the harder it is to admit that you have to put it aside and the longer it will take to create a new version with a different, more efficient architecture.
+> ## Prototype's for throwing it away
+>
+> In case when the requirements aren’t clear from the beginning,
+> starting with a prototype to figure them out is a perfectly valid choice.
+> However, it is important to be ready to throw the prototype away and start
+> again from scratch in case the discovered requirements and constraints reveal
+> that originally chosen architecture is not the most suitable.
+> It is hard to say at what point it’s time to switch from Big Bang-style prototyping
+> to a more organized development methodology, but it’s a good idea to consider this
+> after your code becomes larger than a hundred lines. The larger your prototype,
+> the harder it is to admit that you have to put it aside and the longer it will take
+> to create a new version with a different, more efficient architecture.
+{: .callout}
+
 
 ### The first stage of SLDC: Requirements Gathering and Analysis
 
-Software requirements are the answer to a question “what our software is supposed to do”. There is a hierarchy to them: they are usually separated into Business, User/Stakeholder and Solution Requirements.
+Software requirements are the answer to a question “what our software is supposed to do”. 
+There is a hierarchy to them: they are usually separated into Business, User/Stakeholder and Solution Requirements.
 
 Business requirements describe what is needed from the perspective of the organization, and define the strategic path of the project, e.g. to embark on a new research area or collaborative partnership. User/Stakeholder requirements define what particular stakeholder groups each expect from an eventual solution, essentially acting as a bridge between the higher-level business requirements and specific solution requirements. Finally, Solution (or product) requirements describe characteristics that software has to have in order to satisfy the stakeholder requirements.
 
@@ -67,18 +90,30 @@ Still, if we start the development with those requirements, we’ll encounter a 
 
 Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories. The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values. The second category is called non-functional requirements, and they define how these features will be implemented. They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than 10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement, we should specify that the software must be able to analyze a million sources in under three days.
 
-**A hierarchy of requirements:**
-**_Business requirements:_**
-BR 1: The software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public.
-**_User requirements:_**
-UR 1.1: The software must be able to determine periods with Lomb-Scargle, binned means and SuperSmooth period-finding algorithms.
-UR 1.2: The software must be able to plot a phase-folded light curve.
-UR 1.3: The software must be able to plot a periodogram.
-**_Solution requirements - functional:_**
-SR 1.1.1: The software must drop NaNs and outlying values before running period finding algorithms.
-**_Solution requirements - non-functional:_**
-SR 1.1.1: The software must be able to determine periods for a million sources in under 3 days.
-SR 1.2.1: The software must be able to display plots on screen or save them as .png.
+> ## A hierarchy of requirements
+>**_Business requirements:_**
+> 
+> BR 1: The software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public.
+> 
+> **_User requirements:_**
+> 
+> UR 1.1: The software must be able to determine periods with Lomb-Scargle, binned means and SuperSmooth period-finding algorithms.
+> 
+> UR 1.2: The software must be able to plot a phase-folded light curve.
+> 
+> UR 1.3: The software must be able to plot a periodogram.
+> 
+> **_Solution requirements - functional:_**
+> 
+> SR 1.1.1: The software must drop NaNs and outlying values before running period finding algorithms.
+> 
+> **_Solution requirements - non-functional:_**
+> 
+> SR 1.1.1: The software must be able to determine periods for a million sources in under 3 days.
+> 
+> SR 1.2.1: The software must be able to display plots on screen or save them as .png.
+>
+{: .callout}
 
 ### Not all requirements will be implemented.
 
@@ -86,30 +121,67 @@ In a perfect world, we would be able to implement all the desired requirements b
 
 After the requirements are written down, it is time to look over them and decide how realistic they are, considering available time and people resources. For this we can use a MoSCoW methodology. MoSCoW is an acronym that stands for Must have, Should have, Could have, and Won't have, and each requirement, after a discussion with the stakeholders, falls into one of these four categories:
 
-- Must Have (MH) - these requirements are critical to the current timebox for it to succeed. Even the inability to deliver just one of these would cause the project to be considered a failure.
-- Should Have (SH) - these are important requirements but not necessary for delivery in the timebox. They may be as important as Must Haves, but there may be other ways to achieve them or perhaps they can be held back for a future development timebox.
-- Could Have (CH) - these are desirable but not necessary, and each of these will be included in this timebox if it can be achieved.
-- Won't Have (WH) - these are agreed to be out of scope for this timebox, perhaps because they are the least important or not critical for this phase of development.
+- **Must Have (MH)** - these requirements are critical to the current timebox for it to succeed. Even the inability to deliver just one of these would cause the project to be considered a failure.
+- **Should Have (SH)** - these are important requirements but not necessary for delivery in the timebox. They may be as important as Must Haves, but there may be other ways to achieve them or perhaps they can be held back for a future development timebox.
+- **Could Have (CH)** - these are desirable but not necessary, and each of these will be included in this timebox if it can be achieved.
+- **Won't Have (WH)** - these are agreed to be out of scope for this timebox, perhaps because they are the least important or not critical for this phase of development.
 
 It is also common to plan a sprint in such a way that MH/SH/CH categories took 60%/20%/20% of working time correspondingly. This approach helps to ensure that SH and CH requirements aren’t neglected, and at the same provides enough time cushion to redistribute it if needed.
 
-Exercise: Collaborative work on requirements.
-Split in pairs and go into breakout rooms. Create a common Google Document. Imagine that you are a PI writing a funding proposal. Think for a few minutes and write down in the document a Business Requirement and subsequent Stakeholder requirements for some kind of software that would be useful in your work.
-Then take each other’s Business Requirements and write down several Solution requirements for this future software. When it’s done, provide each other with feedback on whether you think the Solution requirements will be enough for developing the software you need. Don’t forget about non-functional requirements, and don’t forget that not all requirements are realistic! If the Business Requirement includes ‘do a differential imaging on the whole LSST image dataset for 10 years in under 10 hours’, this part of the requirement has to be crossed out.
-If you are going through this materials on your own and don’t have a learning partner, you can use a new business requirement for the LCAnalyzer:
-BR 2: The software must perform periodic/non-periodic classification of all variable sources in the LSST Data Release.
-Solution:
-User requirements:
-UR 2.1: The software must be able to calculate a reliability score of the found periods for each of the period-finding algorithms.
-UR 2.2: The software must be able to calculate the probability of the source to be variable based on the reliability scores for the obtained periods and on the closeness of the periods determined with different methods.
-UR 2.3: For the sources for which no algorithm produces a reliable period, the software must run a transient event detection algorithm.
-Solution requirements:
-Functional:
-SR 2.1.1: The software must calculate a reliability score of the found period for each of the implemented algorithms. The reliability score must vary from 0 to 1.
-SR 2.2.1: The software must calculate two probability metrics for the source to be variable: one calculated as a median reliability score for the determined periods, and another as a mean deviation of the discovered periods.
-SR 2.3.1: The software must run a transient event detection algorithm for the sources for which no periods were determined, or for which the probability of being variable is below a user-defined threshold.
-Non-functional:
-SR 2.3.2: The software must run a transient event detection algorithms in under 1 second per source. 
+> ## Collaborative work on requirements
+>
+> Split in pairs and go into breakout rooms. Create a common Google Document.
+> Imagine that you are a PI writing a funding proposal. Think for a few minutes
+> and write down in the document a Business Requirement and subsequent Stakeholder
+> requirements for some kind of software that would be useful in your work.
+> Then take each other’s Business Requirements and write down several Solution
+> requirements for this future software. When it’s done, provide each other
+> with feedback on whether you think the Solution requirements will be enough
+> for developing the software you need. Don’t forget about non-functional requirements,
+> and don’t forget that not all requirements are realistic! If the Business Requirement
+> includes ‘do a differential imaging on the whole LSST image dataset for 10 years in
+> under 10 hours’, this part of the requirement has to be crossed out.
+> If you are going through this materials on your own and don’t have a learning
+> partner, you can use a new business requirement for the LCAnalyzer:
+> **BR 2:** The software must perform periodic/non-periodic classification of all variable sources in the LSST Data Release.
+> 
+> > ## Solution
+> > 
+> > **User requirements:**
+> > 
+> > **UR 2.1:** The software must be able to calculate a reliability
+> > score of the found periods for each of the period-finding algorithms.
+> >
+> > **UR 2.2:** The software must be able to calculate the probability of the source
+> > to be variable based on the reliability scores for the obtained periods and on
+> > the closeness of the periods determined with different methods.
+> >
+> > **UR 2.3:** For the sources for which no algorithm produces a reliable period, the
+> > software must run a transient event detection algorithm.
+> > 
+> > **Solution requirements:**
+> > 
+> > **Functional:**
+> > 
+> > **SR 2.1.1:** The software must calculate a reliability score of the found
+> > period for each of the implemented algorithms. The reliability score must vary from 0 to 1.
+> > 
+> > **SR 2.2.1:** The software must calculate two probability metrics for the source to be variable:
+> > one calculated as a median reliability score for the determined periods, and another
+> > as a mean deviation of the discovered periods.
+> > 
+> > **SR 2.3.1:** The software must run a transient event detection algorithm for the
+> > sources for which no periods were determined, or for which the probability of
+> > being variable is below a user-defined threshold.
+> > 
+> > **Non-functional:**
+> > 
+> > **SR 2.3.2:** The software must run a transient event detection algorithms in under 1 second per source. 
+> > 
+> {: .solution}
+> 
+{: .challenge}
+
 
 
 ## From Requirements to Implementation, via Design
