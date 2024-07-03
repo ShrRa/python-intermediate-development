@@ -11,7 +11,7 @@ objectives:
 - "Apply error handling and defensive programming techniques to improve robustness of a program"
 - "Integrate linting tool style checking into a continuous integration job"
 keypoints:
-- "Unit testing can show us what does not work, but does not help us locate problems in code."
+- "Unit testing can show us what does not work, but does not always help us locate problems in code."
 - "Use a **debugger** to help you locate problems in code."
 - "A **debugger** allows us to pause code execution and examine its state by adding **breakpoints** to lines in code."
 - "Use **preconditions** to ensure correct behaviour of code."
@@ -28,7 +28,7 @@ by which test(s) are failing.
 But it does not tell us exactly where the problem is (i.e. what line of code),
 or how it came about.
 The process of finding out what causes errors in our code is called **debugging**.
-There are numerous toold and methods for doing this, and in all likelyhood,
+There are numerous tools and methods for doing this, and in all likelyhood,
 you are already using some of them. Perhaps the most common way of debugging your 
 Python code, especially when the project is relatively simple, is to use `print`
 statements for inspecting intermediate values of the variables. Jupyter Lab with its
@@ -40,7 +40,8 @@ However, there is more advanced tool for this, called **debugger**.
 
 Let us add a new function called `calc_stats()` 
 that will calculate for us all three statistical indicators (min, max and mean) for all
-bands of our light curve.
+bands of our light curve.  To begin with, create a new file for this function in the lcanalyzer/ 
+directory of your codebase. 
 (Make sure you create a new feature branch for this work off your `develop` branch.)
 
 ~~~
@@ -254,8 +255,8 @@ Case solved! Now we can `Terminate` the debugging (by clicking on a 'Stop' butto
 The test cases that we have written so far 
 are parameterised with a fairly standard DataFrames filled with random integers or floats.
 However, when writing your test cases,
-it is important to consider parameterising them by unusual or extreme values,
-in order to test all the edge or corner cases that your code could be exposed to in practice.
+it is important to consider parameterising them with unusual or extreme values (as well as data 
+in the expected range), in order to test all the edge or corner cases that your code could be exposed to in practice.
 Generally speaking, it is at these extreme cases that you will find your code failing,
 so it's beneficial to test them beforehand.
 
@@ -329,7 +330,7 @@ def test_normalize_lc(test_input_df, test_input_colname, expected):
 ~~~
 {: .language-python}
 
-Pay attention, that since this our `normalize_lc` function returns a `pandas.Series`, we have to use the corresponding assert function
+Pay attention to the fact that since our `normalize_lc` function returns a `pandas.Series`, we have to use the corresponding assert function
 (`pdt.assert_series_equal`). Another thing to pay attention to is the arguments of this function. Not only we specify the `atol` for 
 ensuring that there will be no issues when comparing floats, but also set `check_names=False`, since by default the `Series` returned from
 the `normalize_lc` function will have the name of the column for which we performed the normalization. Custom assert functions, such as
@@ -376,7 +377,7 @@ def normalize_lc(df,mag_col):
 In the previous section, we made a few design choices for our `normalize_lc` function:
 
 1. We are implicitly converting any `NaN` to 0,
-2. Normalising a constant array of magnitudes in an identical array of 0s,
+2. Normalising a constant array of magnitudes will result in an identical array of 0s,
 3. We don't warn the user of any of these situations.
 
 This could have be handled differently.
