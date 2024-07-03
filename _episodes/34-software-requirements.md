@@ -109,16 +109,22 @@ A postdoc who's going to use this software will give a different answer, somewhe
   
 Each of these items is a User requirement.
 
-Still, if we start the development with those requirements, we’ll encounter a number of uncertainties. For example, what should we do if our light curves contain NaNs or outlying data points? And should the software be able to plot folded light curves for all the millions of periodic sources in the LSST Data Release?
+Still, if we start the development with those requirements, we’ll encounter a number of uncertainties.
+  For example, what should we do if our light curves contain NaNs or outlying data points? And should the software
+  be able to plot folded light curves for all the millions of periodic sources in the LSST Data Release?
 
-Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories. The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values.
+Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories.
+  The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values.
 
 - **SR 1.1.1:** The software must drop NaNs and outlying values before running period finding algorithms. 
 - **SR 1.1.2:** The software must read light curves in .csv, .pkl, .dat formats.
 
-The second category is called non-functional requirements, and they define how these features will be implemented. They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than 10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement, we should specify that the software must be able to analyze a million sources in under three days.
+    The second category is called non-functional requirements, and they define how these features will be implemented.
+  They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than
+  10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement,
+  we should specify that the software must be able to analyze a million sources in under three days.
 
-- **SR 1.1.1:** The software must be able to determine periods for a million sources in under 3 days.
+- **SR 1.1.3:** The software must be able to determine periods for a million sources in under 3 days.
 - **SR 1.2.1:** The software must be able to display plots on screen or save them as .png.
 
 ![Hierarchy of requirements](../fig/34_requirements_reqhierarchy.png.png){: .image-with-shadow width="300px"}
