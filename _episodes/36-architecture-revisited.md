@@ -514,16 +514,7 @@ by setting `required = True` within the `add_argument()` command.
 ## Towards Collaborative Software Development
 
 Having looked at some theoretical aspects of software design,
-we are now circling back to implementing our software design
-and developing our software to satisfy the requirements collaboratively in a team.
-At an intermediate level of software development,
-there is a wealth of practices that could be used,
-and applying suitable design and coding practices is what separates
-an intermediate developer from someone who has just started coding.
-The key for an intermediate developer is to balance these concerns
-for each software project appropriately,
-and employ design and development practices enough so that progress can be made.
-
+we are now circling back to developing our software to satisfy the requirements collaboratively in a team.
 One practice that should always be considered,
 and has been shown to be very effective in team-based software development,
 is that of *code review*.
