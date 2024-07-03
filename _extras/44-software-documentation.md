@@ -11,6 +11,11 @@ questions:
 
 ## Using Sphinx
 
+Sphinx is a tool for making HTML documentation (as well as documentation in EPUB, latex and many other formats)
+that can later be published on your web-site, on GitHub or on a documentation
+platform, such as [Read the Docs](https://docs.readthedocs.io/en/stable/index.html).
+
+
 ### Installing Sphinx
 
 
@@ -130,9 +135,5 @@ At this point we can save the file and move to the documentation itself.
 
 ### Creating documentation
 
-> ## Optional Exercise: Enhancing our Package Metadata
->
-> An exercise
-{: .challenge}
 
 {% include links.md %}
