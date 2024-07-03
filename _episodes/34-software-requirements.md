@@ -127,7 +127,7 @@ Such questions are answered with the lowest-level, or solution, requirements, wh
 - **SR 1.1.3:** The software must be able to determine periods for a million sources in under 3 days.
 - **SR 1.2.1:** The software must be able to display plots on screen or save them as .png.
 
-![Hierarchy of requirements](../fig/34_requirements_reqhierarchy.png.png){: .image-with-shadow width="300px"}
+![Hierarchy of requirements](../fig/34_requirements_reqhierarchy.png){: .image-with-shadow width="300px"}
 
 ### Not all requirements will be implemented.
 
