@@ -96,7 +96,8 @@ extras_order:
   - discuss
   - protect-main-branch
   - persistence
-  - databases
+  - 44-software-documentation
+  - 45-lincc-project-template
   - quiz
 # Files and directories that are not to be copied.
 exclude:
