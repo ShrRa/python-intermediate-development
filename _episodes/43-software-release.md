@@ -25,7 +25,7 @@ for example a single source file,
 it may be appropriate to distribute to non-technical end-users as source code,
 but in most cases we want to bundle our application or library into a package.
 A package is typically a single file which contains within it our software
-and some metadata which allows it to be installed and used more simply -
+and some metadata allows it to be installed and used more simply -
 e.g. a list of dependencies.
 By distributing our code as a package,
 we reduce the complexity of fetching, installing and integrating it for the end-users.
@@ -33,7 +33,7 @@ we reduce the complexity of fetching, installing and integrating it for the end-
 In this session we'll introduce
 one widely used method for building an installable package from our code.
 There are range of methods in common use,
-so it's likely you'll also encounter projects which take different approaches.
+so it's likely you'll also encounter projects take different approaches.
 
 There's some confusing terminology in this episode around the use of the term "package".
 This term is used to refer to both:
@@ -76,14 +76,24 @@ $ pip3 install poetry
 {: .language-bash}
 
 To test, we can ask where Poetry is installed:
-
 ~~~
 $ which poetry
 ~~~
 {: .language-bash}
 
 ~~~
-/home/alex/InterPython_Workshop_Example/venv/bin/poetry
+/mnt/Data/Work/GitHub/InterPython_Workshop_Example/venv/bin/poetry
+~~~
+{: .output}
+
+or what version of the package is available:
+~~~
+$ poetry --version
+~~~
+{: .language-bash}
+
+~~~
+Poetry (version 1.8.3)
 ~~~
 {: .output}
 
