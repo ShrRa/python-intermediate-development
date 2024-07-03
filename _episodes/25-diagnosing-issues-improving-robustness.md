@@ -38,7 +38,7 @@ However, there is more advanced tool for this, called **debugger**.
 
 ## Setting the Scene
 
-Let us add a new function called `calc_stats()` 
+Let us add a new function to our jupyter notebook called `calc_stats()` 
 that will calculate for us all three statistical indicators (min, max and mean) for all
 bands of our light curve.  To begin with, create a new file for this function in the lcanalyzer/ 
 directory of your codebase. 

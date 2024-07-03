@@ -33,23 +33,23 @@ the appearance of the concept of Software Development Life Cycle.
 
 Software Development Life Cycle (SLDC) is a methodology that splits the process of software development into a number of stages (usually between four and six):  
 
-- Requirements gathering and analysis: determining what functionality the stakeholders want.
+- **Requirements gathering and analysis**: determining what functionality the stakeholders want.
  For large projects this stage includes user surveys and domain analysis (What functionality 
 is already provided by pre-existing, similar projects? What are the unsolved problems of the potential users?).
  For a small project this step may be as short as writing down a list of desired features;
-- Planning: determining what resources are needed to fulfill the requirements and deciding how
+- **Planning**: determining what resources are needed to fulfill the requirements and deciding how
  the work process is going to be organized. For large projects it may include decisions to hire more
  people for the development team or obtaining more CPUs/GPUs for the cluster. For a small project it
  may be as short as deciding which Python libraries will be used;
-- Software design: outlining software architecture. At this stage, the detailed description of how the
+- **Software design**: outlining software architecture. At this stage, the detailed description of how the
  software will be designed is produced, shared with the stakeholders and edited in accordance with the feedback;
-- Development/Implementation: writing the code;
-- Testing. This phase includes not only unit testing (which is normally done during the development
+- **Development/Implementation**: writing the code;
+- **Testing**. This phase includes not only unit testing (which is normally done during the development
  stage, especially if Test-Driven Development is used), but also integration testing, performance testing, 
 beta testing (manual) and so on;
-- Deployment: installing the software in the operating environment (which can be very different from the
+- **Deployment**: installing the software in the operating environment (which can be very different from the
  development environment), familiarizing the end users with the software;
-- Maintenance.
+- **Maintenance.**
 
 Each stage of SDLC is a separate discipline with its own practices, standards and documentation. Small teams, typical in science, often don’t have the resources to utilize these standards and methodologies. However, even a single-developer ‘team’ can benefit from using a simplified form of SLDC. 
 
@@ -91,51 +91,43 @@ and we want to continue in a more organized fashion, using Agile-like approach. 
 ### The first stage of SLDC: Requirements Gathering and Analysis
 
 Software requirements are the answer to a question “what our software is supposed to do”. 
-There is a hierarchy to them: they are usually separated into Business, User/Stakeholder and Solution Requirements.
+There is a hierarchy to them: they are usually separated into **Business**, **User/Stakeholder** and **Solution** Requirements.
 
 Business requirements describe what is needed from the perspective of the organization, and define the strategic path of the project, e.g. to embark on a new research area or collaborative partnership. User/Stakeholder requirements define what particular stakeholder groups each expect from an eventual solution, essentially acting as a bridge between the higher-level business requirements and specific solution requirements. Finally, Solution (or product) requirements describe characteristics that software has to have in order to satisfy the stakeholder requirements.
 
 The reasoning behind this hierarchy is that the answer to a question “what our software should do” will depend on who you ask. 
-For example, a PI of a research group when writing a funding proposal will answer this question like this: “this software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public”. Starting the development with this requirement alone will end in a huge disappointment, since formally you can deliver a package that will produce a table with two columns, an object ID and a period estimation, and it won't be enough for a proper scientific analysis. At the same time, it is excellent for estimating the scope of the project: it states the main purpose of the software, what the input data will be and what are the computational constraints. Such a requirement can be considered as a business requirement.
+For example, a PI of a research group when writing a funding proposal will answer this question like this: 
+- **BR 1:** The software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public.
+ 
+Starting the development with this requirement alone will end in a huge disappointment, since formally you can deliver a package that will produce a table with two columns, an object ID and a period estimation, and it won't be enough for a proper scientific analysis. At the same time, it is excellent for estimating the scope of the project: it states the main purpose of the software, what the input data will be and what are the computational constraints. Such a requirement can be considered as a business requirement.
 
-A postdoc who's going to use this software will give a different answer, somewhere along the lines of: “the software must determine the periods with three period-finding algorithms, and it must be able to plot phased light curves and periodograms”. This kind of requirement gives us something to work with: at the very least we understand that we need to implement:
+A postdoc who's going to use this software will give a different answer, somewhere along the lines of: “the software must determine the periods with three period-finding algorithms, and it must be able to plot phased light curves and periodograms”. This kind of answer gives us something to work with: at the very least we understand that we need to implement:
 
-- three period-finding algorithms;
-- a function for plotting a light curve
-- and a function for plotting a periodogram.
+- **UR 1.1:** The software must be able to determine periods with Lomb-Scargle, binned means and SuperSmooth period-finding algorithms.
+- **UR 1.2:** The software must be able to plot a phase-folded light curve.
+- **UR 1.3:** The software must be able to plot a periodogram.
   
-Each of these items is a user requirement.
+Each of these items is a User requirement.
 
-Still, if we start the development with those requirements, we’ll encounter a number of uncertainties. For example, what should we do if our light curves contain NaNs or outlying data points? And should the software be able to plot folded light curves for all the millions of periodic sources in the LSST Data Release?
+Still, if we start the development with those requirements, we’ll encounter a number of uncertainties.
+  For example, what should we do if our light curves contain NaNs or outlying data points? And should the software
+  be able to plot folded light curves for all the millions of periodic sources in the LSST Data Release?
 
-Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories. The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values. The second category is called non-functional requirements, and they define how these features will be implemented. They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than 10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement, we should specify that the software must be able to analyze a million sources in under three days.
+Such questions are answered with the lowest-level, or solution, requirements, which are split in two categories.
+  The first one, functional requirements, correspond to the smallest features of the software. E.g. the software must drop NaNs and outlying values.
 
-> ## A hierarchy of requirements
->**_Business requirements:_**
-> 
-> BR 1: The software must extract periods for all periodic sources in an LSST Data Release within 2 weeks after the release is public.
-> 
-> **_User requirements:_**
-> 
-> UR 1.1: The software must be able to determine periods with Lomb-Scargle, binned means and SuperSmooth period-finding algorithms.
-> 
-> UR 1.2: The software must be able to plot a phase-folded light curve.
-> 
-> UR 1.3: The software must be able to plot a periodogram.
-> 
-> **_Solution requirements - functional:_**
-> 
-> SR 1.1.1: The software must drop NaNs and outlying values before running period finding algorithms.
-> 
-> SR 1.1.2: The software must read light curves in different formats such as .csv, .json, .dat.
-> 
-> **_Solution requirements - non-functional:_**
-> 
-> SR 1.1.1: The software must be able to determine periods for a million sources in under 3 days.
-> 
-> SR 1.2.1: The software must be able to display plots on screen or save them as .png.
->
-{: .callout}
+- **SR 1.1.1:** The software must drop NaNs and outlying values before running period finding algorithms. 
+- **SR 1.1.2:** The software must read light curves in .csv, .pkl, .dat formats.
+
+    The second category is called non-functional requirements, and they define how these features will be implemented.
+  They constrain things like computational performance, security or usability. E.g. if the user asks to plot more than
+  10 light curves, they must be saved as .png on a drive instead. Or, thinking about the original business requirement,
+  we should specify that the software must be able to analyze a million sources in under three days.
+
+- **SR 1.1.3:** The software must be able to determine periods for a million sources in under 3 days.
+- **SR 1.2.1:** The software must be able to display plots on screen or save them as .png.
+
+![Hierarchy of requirements](../fig/34_requirements_reqhierarchy.png){: .image-with-shadow width="300px"}
 
 ### Not all requirements will be implemented.
 
@@ -182,9 +174,9 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > **UR 2.3:** For the sources for which no algorithm produces a reliable period, the
 > > software must run a transient event detection algorithm.
 > > 
-> > **Solution requirements:**
+> >    **Solution requirements:**
 > > 
-> > **Functional:**
+> >    **Functional:**
 > > 
 > > **SR 2.1.1:** The software must calculate a reliability score of the 
 > > period found by each of the implemented algorithms. The reliability score must vary from 0 to 1.
@@ -197,7 +189,7 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > sources for which no periods were determined, or for which the probability of
 > > being variable is below a user-defined threshold.
 > > 
-> > **Non-functional:**
+> >    **Non-functional:**
 > > 
 > > **SR 2.3.2:** The software must run a transient event detection algorithms in under 1 second per source. 
 > > 
