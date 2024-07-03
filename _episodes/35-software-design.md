@@ -226,6 +226,65 @@ architecture is better in terms of separation of concerns, more convenient to te
 > Time: 10 minutes
 {: .challenge}
 
+## Software Requirements Document and Software Design Document
+
+As was mentioned in the previous episode, each life cycle stage has its own best practices,
+specifications and formats. Two common types of specifications are 
+Software Requirements Document (SRD) and Software Design Document (SDD):
+
+- SRD focuses on 'what' the system does, describing its main purpose, potential users, their needs and expectations (often in
+the form of use case scenarios),
+the system's necessary and desireable features. As the name suggests, it also includes full list of the requirements;
+- SDD addresses how the system does it, including the architectural design, detailed components and data structures,
+diagrams, pseudocode, interface layouts, etc.
+
+There are multiple templates of these types of documentation. The LSST Transient and Variable Sky Science Collaboration 
+has its own astronomy-adapted SRD and SDD templates, written based on the [IEEE recommendations](https://ieeexplore.ieee.org/document/278253) 
+and available for everyone. Hovewer, for a small-scale project it is acceptable to go with
+a simplified version of these documents, that boils down to a checklist:
+
+**SRD checklist**:
+
+1. Introduction
+- [ ] Purpose & Scope
+- [ ] Audience/Stakeholders 
+- [ ] Problems within the scope of the software
+- [ ] References, definitions, acronyms
+2. Overall Description
+- [ ] Context (self-contained, part of larger family)
+- [ ] Major functions as bullet points
+- [ ] User classes and characteristics
+- [ ] Where will the software be operated?
+3. Interface Requirements
+- [ ] User interfaces
+- [ ] Software and hardware interfaces
+- [ ] Communication interfaces/protocols 
+4. System Features
+- [ ] Description and Priority
+- [ ] Stimulus/Response (use case scenarios)
+- [ ] Functional Requirements
+5. Nonfunctional Requirements
+- [ ] Performance Requirements
+- [ ] Security Requirements
+
+**SDD checklist:**
+
+1. Software Overview
+- [ ] Architecture Description
+- [ ] Data flow diagram
+- [ ] Dependencies
+2. Development Process
+- [ ] Hardware design decisions
+- [ ] Technology stack
+- [ ] Coding standards & testing strategy
+- [ ] Security & Backup
+- [ ] Roadmap (work plan, timeline estimation)
+- [ ] Possible future functionality
+3. Detailed description
+- [ ] Components and their relationship
+- [ ] Data Model
+- [ ] Interface design (front-end, jupyter, API)
+- [ ] Procedural design, e.g. diagram, pseudo-code
 
 ## At what stage it's time to start using these techniques?
 
