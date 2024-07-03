@@ -168,9 +168,9 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > **UR 2.3:** For the sources for which no algorithm produces a reliable period, the
 > > software must run a transient event detection algorithm.
 > > 
-> > **Solution requirements:**
+> >    **Solution requirements:**
 > > 
-> > **Functional:**
+> >    **Functional:**
 > > 
 > > **SR 2.1.1:** The software must calculate a reliability score of the 
 > > period found by each of the implemented algorithms. The reliability score must vary from 0 to 1.
@@ -183,7 +183,7 @@ It is also common to plan a sprint in such a way that MH/SH/CH categories took 6
 > > sources for which no periods were determined, or for which the probability of
 > > being variable is below a user-defined threshold.
 > > 
-> > **Non-functional:**
+> >    **Non-functional:**
 > > 
 > > **SR 2.3.2:** The software must run a transient event detection algorithms in under 1 second per source. 
 > > 
