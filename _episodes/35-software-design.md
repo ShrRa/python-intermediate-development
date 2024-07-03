@@ -157,7 +157,7 @@ Creating such a diagram is useful for larger projects. Below a system diagram ta
 the LSST [Data Product Definition Document](https://docushare.lsst.org/docushare/dsweb/Get/LSE-163) illustrates the conceptual design
 of the LSST pipelines for processing images.
 
-![System diagram of LSST science pipelines](../fig/35_softdesign_system_diagram.png){: .image-with-shadow width="800px"}
+![System diagram of LSST science pipelines](../fig/35_softdesign_system_diagram.png){: .image-with-shadow width="600px"}
 <p style="text-align: center;">
   System diagram of the conceptual design of LSST science pipelines for imaging processing. 
 Without imposing any constraints on the implementation of the science pipelines, 
@@ -200,15 +200,15 @@ architecture is better in terms of separation of concerns, more convenient to te
 > Did you have to rework a large part of the architecture to satisfy this new requirement?
 > 
 > > ## Solution
-> >
+> > 
 > > 
 > {: .solution}
-> 
+>
+> Time: 10 minutes
 {: .challenge}
 
-Exercise: 
 
-## Best Practices for 'Good' Software Design
+## At what stage it's time to start using these techniques?
 
 Aspirationally, what makes good code can be summarised in the following quote from the
 [Intent HG blog](https://intenthq.com/blog/it-audience/what-is-good-code-a-scientific-definition/):
@@ -227,20 +227,23 @@ what are the concepts we need to represent
 and what are the relationships between them.
 And importantly, who will be using our software and how will they interact with it?
 
-Importantly, there is only so much time available.
 How much effort should we spend on designing our code properly
 and using good development practices?
 The following [XKCD comic](https://xkcd.com/844/) summarises this tension:
 
 ![Writing good code comic](../fig/xkcd-good-code-comic.png){: .image-with-shadow width="400px" }
 
-At an intermediate level there are a wealth of practices that *could* be used,
-and applying suitable design and coding practices is what separates
-an *intermediate developer* from someone who has just started coding.
-The key for an intermediate developer is to balance these concerns
-for each software project appropriately,
-and employ design and development practices *enough* so that progress can be made.
-It's very easy to under-design software,
-but remember it's also possible to over-design software too.
+There are a wealth of practices that could be used, 
+and this abundance can be intimidating. It is tempting
+to skip the requirements analysis, planning and design stages and just go on with the
+Big Bang SDLC model. However, picking one or two software design 
+approaches and using them at the beginning of _every_ software project, even a small one,
+is what separates an *intermediate developer* from someone who has just started coding.
+It is much better to have a few use case scenarios written in a `.txt` file and a photo
+of a class diagram drawn on a napkin from a cafeteria than to have an empty 
+fancy template of a Software Design Document and a thousand lines of spagetti-code
+written with no preliminary architecture in mind. Make it a habit to spend
+at least ten minutes writing down the requirements and software architecture 
+every time you open your IDE, and it will save you months of work in the future.
 
 {% include links.md %}
