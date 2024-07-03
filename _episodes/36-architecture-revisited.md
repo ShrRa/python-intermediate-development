@@ -1,7 +1,7 @@
 ---
 title: "Architecture Revisited: Adding a .py Controller"
 teaching: 15
-exercises: 30
+exercises: 50
 questions:
 - "How can we extend our software within the constraints of the MVC architecture?"
 objectives:
@@ -33,12 +33,11 @@ software requirements, software design and actual development.
 > Create a new branck for this work (you can call it `dev-oop` or something similar).
 >
 > We can start with defining the requirements. Let's start with the following ones:
-> 
-> - **SR1.1.1** (from UR1.1): the package can read the data in different formats, such as .csv and .pkl;
-> - **SR1.1.2** (from UR1.1): the package can filter out the rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9).
-> - **SR1.1.3** (from UR1.1): the package can return the list of unique object IDs;
-> - **SR1.1.4** (from UR1.1): the package can return a dict with the light curve of a user specified object in a user specified band.
-> - 
+> - **SR1.1.1**: the package can read the data in different formats, such as .csv and .pkl;
+> - **SR1.1.2**: the package can filter out the rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9).
+> - **SR1.1.3**: the package can return the list of unique object IDs;
+> - **SR1.1.4**: the package can return a dict with the light curve of a user specified object in a user specified band.
+>   
 > Think of a few more, and write them on the top of you new notebook (or `.py` file if that's more convenient for you)
 > before starting your work.
 >
@@ -49,9 +48,9 @@ software requirements, software design and actual development.
 > > ## Solution
 > >
 > > Let's assume that in addition to the requirements above we also added two more functional requirements:
-> > - **SR1.1.5** (from UR1.1): the package can return a DataFrame with all the observations
+> > - **SR1.1.5**: the package can return a DataFrame with all the observations
 >   of a given object in a given band;
-> > - **SR1.1.6** (from UR1.1): the package can plot an unfolded light curve.
+> > - **SR1.1.6**: the package can plot an unfolded light curve.
 > > 
 > > We can start the implementation with this:
 > > - in the `lcanalyzer` directory we can create two new files for the
