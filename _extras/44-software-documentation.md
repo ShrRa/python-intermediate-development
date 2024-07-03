@@ -21,9 +21,14 @@ Install Sphinx using `pip`:
 ~~~
 $ source venv/bin/activate
 $ pip install sphinx
+$ pip install sphinx_rtd_theme
+$ pip install myst-parser
 $ pip freeze > requirements.txt
 ~~~
 {: .language-bash}
+
+Two other installations, `sphinx_rtd_theme` and `myst-parser` are packages for changing the appearance of the
+documentation site with the 'Read the Docs' theme and for using markdown formatting in the documentation.
 
 Sphinx requires a specific folder structure. Create documents folder, go there and launch `sphinx-quickstart` wizaard
 
@@ -66,33 +71,62 @@ drwxrwxrwx 1 root root   0 Jul  3 18:27 _templates
 ~~~
 {: .output}
 
-The files that we are going to edit are `conf.py` and `index.rst`.
+The files that we are going to edit are `conf.py` and `index.rst`. Let's start with the `conf.py`:
+open it with your favorite text editor and have a look.
 
-### Using Read The Docs theme
-
-You can quickly change the appearance of your documentation site using themes. 
-In `conf.py` you will find a line that states `html_theme = 'alabaster'`.
-You can change this parameter to any of the Sphinx built-in themes, listed
-[here](https://www.sphinx-doc.org/en/master/usage/theming.html#builtin-themes). 
-
-Another common design theme is the one developed by 'Read the Docs', which is
-also a popular software documentation hosting. You can install this theme as any other python 
-package:
 ~~~
-$ pip install sphinx_rtd_theme
+$ gedit conf.py
 ~~~
 {: .language-bash}
-and then add it to the Sphinx extensions in the `conf.py` file
-and setting it as the html theme:
+
+On the top of the file you will see the information you provided when creating the docs: the project name,
+author's name and release version. If you made an error or want to change something, you can always do it here.
 ~~~
-extensions = [
-     ...
-    'sphinx_rtd_theme',
-]
+project = 'LCAnalyzer'
+copyright = '2024, alex'
+author = 'alex'
+
+version = '0.1'
+release = '0.1'
+~~~
+{: .language-python}
+Below you will see an empty list called `extensions`. Extensions allow you to make more out of
+your documentation, some of them are [built in](https://www.sphinx-doc.org/en/master/usage/extensions/index.html#built-in-extensions),
+while others are developed by third parties. 
+
+We will use the following extensions:
+- `sphinx.ext.autodoc` and `sphinx.ext.autosummary` for turning docstrings in your code
+as part of documentation;
+- `sphinx.ext.napoleon` for supporting different styles of docstrings;
+- `sphinx.ext.viewcode` for including highlighed source code in your docs;
+- and external 'sphinx_rtd_theme' and 'myst_parser' extensions for using a popular Read The Docs html theme.
+
+The resulting `extensions` list will look like this:
+~~~
+...
+extensions = ['sphinx_rtd_theme','myst_parser',
+		'sphinx.ext.autodoc',
+		'sphinx.ext.autosummary',
+		'sphinx.ext.napoleon',
+		'sphinx.ext.viewcode']
+...
+~~~
+{: .language-python}
+
+Finally, in `conf.py` we can change the appearance of our documentation site using themes. 
+In `conf.py` you will find a line that states `html_theme = 'alabaster'`.
+You can change this parameter to any of the Sphinx built-in themes, listed
+[here](https://www.sphinx-doc.org/en/master/usage/theming.html#builtin-themes), however, 
+we will use the common design theme is the one developed by 'Read the Docs', which is
+also a popular software documentation hosting:
+~~~
 ...
 html_theme = "sphinx_rtd_theme"
 ~~~
 {: .language-python}
+
+At this point we can save the file and move to the documentation itself.
+
 
 ### Creating documentation
 
