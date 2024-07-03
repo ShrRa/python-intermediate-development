@@ -111,7 +111,7 @@ if you have only a general description of the software, so it’s suitable for w
 a small project, and it’s especially helpful for the component design stage. 
 It can also be applied to the user or solution requirements - or used for for writing them.
 
-> ## Exercise: The noon-in-text practice
+> ## Exercise: The noun-in-text practice
 >
 > Let’s say that we are starting a new project: we want to develop a package that detects
 > faint structures on the galaxy images. We want the software to be able to read images in
