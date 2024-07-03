@@ -1,7 +1,7 @@
 ---
 title: "Architecture Revisited: Adding a .py Controller"
 teaching: 15
-exercises: 10
+exercises: 30
 questions:
 - "How can we extend our software within the constraints of the MVC architecture?"
 objectives:
@@ -17,7 +17,182 @@ In programming languages that support multiple paradigms, such as Python,
 we have the luxury of using elements of different paradigms and we,
 as software designers and programmers,
 can decide how to use those elements in different architectural components of our software.
-Let's now circle back to the architecture of our software for one final look.
+
+Now, let's use what we've learned in the previous episodes and bring together 
+software requirements, software design and actual development.
+
+> ## Exercise: A Survey Class
+>
+> Use what we've learned to develop a class for processing the survey dataset itself.
+> You already have most of the functionality implemented, now you have to think about
+> how to re-implement it within an OOP paradigm. At the early stages of a software project
+> it is pretty common to spend some time drafting out separate features before getting a
+> cleare picture of what your software will be as a whole, especially if you work alone.
+> This is called ['bottom-up design'](https://en.wikipedia.org/wiki/Bottom%E2%80%93up_and_top%E2%80%93down_design#Software_development)
+> (as opposed to the 'top-down design', in which you start with drafting the overall architecture).
+> Create a new branck for this work (you can call it `dev-oop` or something similar).
+>
+> We can start with defining the requirements. Let's start with the following ones:
+> 
+> - **SR1.1.1** (from UR1.1): the package can read the data in different formats, such as .csv and .pkl;
+> - **SR1.1.2** (from UR1.1): the package can filter out the rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9).
+> - **SR1.1.3** (from UR1.1): the package can return the list of unique object IDs;
+> - **SR1.1.4** (from UR1.1): the package can return a dict with the light curve of a user specified object in a user specified band.
+> - 
+> Think of a few more, and write them on the top of you new notebook (or `.py` file if that's more convenient for you)
+> before starting your work.
+>
+> Try using Test Driven Development for any features you add:
+> write the tests first, then add the feature. Don't forget to put the code you finished
+> in the `.py` files!
+>
+> > ## Solution
+> >
+> > Let's assume that in addition to the requirements above we also added two more functional requirements:
+> > - **SR1.1.5** (from UR1.1): the package can return a DataFrame with all the observations
+>   of a given object in a given band;
+> > - **SR1.1.6** (from UR1.1): the package can plot an unfolded light curve.
+> > 
+> > We can start the implementation with this:
+> > - in the `lcanalyzer` directory we can create two new files for the
+> >   models level of our architecture: `lightcurve.py` which will contain the `Lightcurve`
+> >   class, and `survey.py` that will containe the `Survey` class. Also we will create a file `plots.py`
+> >   for the views level of the architecture.
+> > - in the `tests` directory we will create files `test_lightcurve.py`, `test_survey.py` and `test_plots.py`.
+> > - in the root directory we will create a new `.ipynb` file for interactive development of the code.
+> >
+> > The minimal implementation of the requirements above would look like this:
+> > In `lcanalyzer/lightcurve.py`
+> > ~~~
+> > import pandas as pd
+> > import numpy as np
+> > 
+> > class Lightcurve:
+> >     """Class Lightcurve"""
+> > 
+> >     def __init__(self, mjds=None, mags=None, mag_errs=None):
+> >         self.lc = {}
+> >         if mjds is not None:
+> >             self.add_observations(mjds, mags, mag_errs)
+> > 
+> >     def add_observations(self, mjds, mags, mag_errs=None):
+> >         self.lc["mjds"] = self.convert_to_array(mjds)
+> >         self.lc["mags"] = self.convert_to_array(mags)
+> >         if mag_errs is not None:
+> >             self.lc["mag_errs"] = self.convert_to_array(mag_errs)
+> >         self.compare_len(self.lc.values())
+> >         return self.lc
+> > 
+> >     def convert_to_array(self, data):
+> >         if not isinstance(data, np.ndarray):
+> >             if isinstance(data, (list, tuple, pd.Series)):
+> >                 data = np.array(data)
+> >             elif isinstance(data, (int, float)):
+> >                 data = np.array([data])
+> >             else:
+> >                 raise ValueError("The data type of the input is incorrect!")
+> >         return data
+> > 
+> >     def compare_len(self, arrs):
+> >         lens = [len(arr) for arr in arrs]
+> >         if len(set(lens)) > 1:
+> >             raise ValueError(
+> >                 "Passed timestamps and mags or mag_errs arrays have different lengths!"
+> >             )
+> >         return
+> > 
+> >     @property
+> >     def mean_mag(self):
+> >         return np.mean(self.lc["mags"])
+> > 
+> >     def __len__(self):
+> >         return len(self.lc["mjds"])
+> > ~~~
+> > {: .language-python}
+> > 
+> > In `lcanalyzer/survey.py`:
+> > ~~~
+> > from lcanalyzer.lightcurve import *
+> > import pandas as pd
+> > 
+> > class Survey:
+> >     def __init__(
+> >         self,
+> >         filename,
+> >         clean_nans = True,
+> >         id_col="objectId",
+> >         band_col="band",
+> >         time_col="expMidptMJD",
+> >         mag_col="psfMag",
+> >     ):
+> >         self.id_col = id_col
+> >         self.band_col = band_col
+> >         self.time_col = time_col
+> >         self.mag_col = mag_col
+> >         self.data = self.load_table(filename, clean_nans)
+> >         self.unique_objects = self.data[self.id_col].unique()
+> > 
+> >     def load_table(self, filename, clean_nans = True):
+> >         """Load a table from CSV file.
+> > 
+> >         :param filename: The name of the .csv file to load
+> >         :returns: pd.DataFrame with the data from the file.
+> >         """
+> >         if filename.endswith(".csv"):
+> >             df = pd.read_csv(filename)
+> >         elif filename.endswith(".pkl"):
+> >             df = pd.read_pickle(filename)
+> >         if clean_nans == True:
+> >            df = self.clean_table(df)
+> >         return df
+> >
+> >     def clean_table(self,df,nan_val='nan'):
+> >         if nan_val == 'nan':
+> >             filt_nan = ~((df[self.mag_col] == nan_val) | (
+> >                 df[self.mag_col].isnull())
+> >             )
+> >         return df[filt_nan]
+> > 
+> >     def get_obj_band_df(self, obj_id, band):
+> >         filt_band_obj = (self.data[self.id_col] == obj_id) & (
+> >             self.data[self.band_col] == band
+> >         )
+> >         return self.data[filt_band_obj]
+> > 
+> >     def get_lc(self, obj_id, band):
+> >         df = self.get_obj_band_df(obj_id, band)
+> >         lc = Lightcurve(mjds=df[self.time_col], mags=df[self.mag_col])
+> >         return lc.lc
+> > ~~~
+> > {: .language-python}
+> > 
+> > In `lcanalyzer/plots.py`:
+> > ~~~
+> > """Module containing code for plotting a lightcurve."""
+> > 
+> > from matplotlib import pyplot as plt
+> >     
+> > def plotUnfolded(mjds,mags,mjd_label='Mjd (days)',mag_label='Mag',color='blue',marker='o'):
+> >     fig = plt.figure(figsize=(7,5))
+> >     ax = fig.add_subplot(1,1,1)
+> >     ax.scatter(
+> >         mjds,
+> >         mags,
+> >         color=color,
+> >         marker=marker
+> >     )
+> >     ax.minorticks_on()
+> >     ax.set_xlabel(mjd_label)
+> >     ax.set_ylabel(mag_label)
+> >     fig.tight_layout()
+> >     plt.show()
+> > ~~~
+> > {: .language-python}
+> >
+>  {: .solution}
+> 
+{: .challenge}
+
 
 ## MVC Revisited
 
@@ -33,9 +208,9 @@ What really matters is that we are making decisions about the architecture of ou
 that suit the way in which we expect to use it.
 We should reuse these established ideas where we can, but we don't need to stick to them exactly.
 
-In this episode we'll be taking our Object Oriented code from the previous episode
-and looking into how we can use it with not only `.ipynb` files as Controllers, but also through the command
-line.
+So far we used `.ipynb` files as Controllers. While conveninent during the development phase,
+we often need to run our software from a commant line. It means that we need to create another Controller
+for the package.
 
 ### Creating a `.py` Controller File for Command Line Execution 
 

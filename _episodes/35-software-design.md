@@ -1,7 +1,7 @@
 ---
 title: "Software Architecture and Design"
 teaching: 15
-exercises: 0
+exercises: 20
 questions:
 - "What should we consider when designing software?"
 - "How can we make sure the components of our software are reusable?"
@@ -25,50 +25,6 @@ Software design, as opposed to software requirements, deals with **how** a proje
 terms of data structures, algorithms and system architecture. Requirements, on the other hand,
 specify **what** must be accomplished.
 
-As a piece of software grows,
-it will reach a point where there's too much code for us to keep in mind at once.
-At this point, it becomes particularly important that the software be designed sensibly.
-What should be the overall structure of our software,
-how should all the pieces of functionality fit together,
-and how should we work towards fulfilling this overall design throughout development?
- Similar to the software requirements, the actual implementation and timeline
-of the development process should be documented. One example is the
-[IEEE software design descriptions](https://ieeexplore.ieee.org/document/278258) and as 
-indicated in the requirements episode, an adaption for the [Software taskforce of the Transients and Variable Stars
-LSST Science Collaboration](https://lsst-tvssc.github.io/taskForces/software_task_force.html) 
-can be found under `Documents`.
-
-
-**Software design** covers some of the following aspects:
-
-- **Algorithm design** -
-  what method are we going to use to solve the core business/science problem?
-- **Software architecture** -
-  what components will the software have and how will they cooperate?
-- **System architecture** -
-  what other things will this software have to interact with and how will it do this?
-- **UI/UX** (User Interface / User Experience) -
-  how will users interact with the software?
-
-As usual, the sooner you adopt a practice in the lifecycle of your project,
-the easier it will be.
-So we should think about the design of our software from the very beginning,
-ideally even before we start writing code -
-but if you didn't, it's never too late to start.
-
-The answers to these questions will provide us with some **design constraints**
-which any software we write must satisfy.
-For example, a design constraint when writing a mobile app would be
-that it needs to work with a touch screen interface -
-we might have some software that works really well from the command line,
-but on a typical mobile phone there isn't a command line interface that people can access.
-
-
-## Software Architecture
-
-At the beginning of this episode we defined **software architecture**
-as an answer to the question
-"what components will the software have and how will they cooperate?".
 Software engineering borrowed this term, and a few other terms,
 from architects (of buildings) as many of the processes and techniques have some similarities.
 One of the other important terms we borrowed is 'pattern',
@@ -91,46 +47,6 @@ Many patterns rely on concepts from Object Oriented Programming and
 there are many online sources of information about design and architecture patterns,
 often giving concrete examples of cases where they may be useful.
 One particularly good source is [Refactoring Guru](https://refactoring.guru/design-patterns).
-
-## Addressing New Requirements
-
-So, let's assume we now want to extend our application 
-with some new functionalities (more statistical processing, a new view, etc.).
-Let's recall the solution requirements we discussed in the previous episode:
-
-- *Functional Requirements*:
-  - SR1.1.2 (from UR1.1):
-    read light curves in different formats such as .csv, .json, .dat;
-  - SR1.1.1 (from UR1.1):
-    filter out rows with NaN entries, where NaNs can be filled with different values (e.g. -99.9);
-- *Non-functional Requirements*:
-  - SR1.2.3 (from SR1.1.1):
-    be able to determine periods for at least 230 light curves in under a minute.
-    
-### How Should We Test These Requirements?
-
-Sometimes when we make changes to our code that we plan to test later,
-we find the way we've implemented that change doesn't lend itself well to how it should be tested.
-So what should we do? We could write unit tests. As we have seen before, it is 
-a good idea to make sure that your software's features are modularised
-and accessible via logical functions. 
-
-We could also consider writing unit tests ensuring that the system meets
-our performance requirement, so should we? In short, it's generally considered
-bad practice to use unit tests for this purpose.
-This is because unit tests test *if* a given aspect is behaving correctly,
-whereas performance tests test *how efficiently* it does it.
-Performance testing produces measurements of performance which require a different kind of analysis
-(using _integration_ and _performance_ tests, as well as techniques such as [*code profiling*](https://towardsdatascience.com/how-to-assess-your-code-performance-in-python-346a17880c9f)),
-and require careful and specific configurations of operating environments to ensure fair testing.
-Furthermore, it is important to note that unit testing frameworks are not intended
-for measuring system performance as a whole, as they only test individual units.
-This limitation prevents stakeholders from gaining a comprehensive understanding of
-the system's performance in real-world scenarios.
-
-The key is to think about which kind of testing should be used
-to check if the code satisfies a requirement,
-but also what you can do to make that code amenable to that type of testing.
 
 ## Best Practices for 'Good' Software Design
 
