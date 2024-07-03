@@ -109,7 +109,7 @@ This noun usually becomes a class, and the rest of the nouns in the group may be
 inherited classes or turn out to be good class attributes. This method is applicable even 
 if you have only a general description of the software, so it’s suitable for working on 
 a small project, and it’s especially helpful for the component design stage. 
-It can also be applied on the user or solution requirements - or for writing them.
+It can also be applied to the user or solution requirements - or used for for writing them.
 
 > ## Exercise: The noon-in-text practice
 >
@@ -129,16 +129,20 @@ It can also be applied on the user or solution requirements - or for writing the
 > > _faint structures, galaxy, image, format, list of detected structures,
 > > detected structure, corresponding image file, pixel belonging to the structure_
 > >
-> > Without knowing anything about astronomy, we can presume that our software will have classes
-> >`Image` with attributes `str: format` and `Galaxy: galaxy`, class `Galaxy` with attribute `list: detected_structures`,
-> > and class `FaintStructure` with attribute `image: belonging_pixels`. However, after some consideration we
-> > may realize that there is a number of uncertainties. Does an image always contain one and only one galaxy,
+> > Without knowing anything about astronomy, we can presume that our software will have:
+> > 
+> >- class `Image` with attributes `str: format` and `Galaxy: galaxy`;
+> >- class `Galaxy` with attribute `list: detected_structures`;
+> >- and class `FaintStructure` with attribute `image: belonging_pixels`.
+> > 
+> > However, after some consideration it becomes apparent that there is a number of uncertainties.
+> > Does an image always contain one and only one galaxy,
 > > or there may be several galaxies in the image? Does the user pass the list of detected galaxies pictured in the
 > > image before launching faint structure detection, or do we need galaxy detection feature within the package as well?
 > > What are the properties of a detected galaxy - is it defined only by its center coordinates or it has a mask indicating
 > > which pixels belong to which galaxy? Is it possible for a faint structure to be detected without a host galaxy?
 > >
-> > Answering each of these questions results in a new User and Solution requirement.
+> > Answering these questions leads to new User and Solution requirements and will affect the design of the software.
 > {: .solution}
 > 
 {: .challenge}
@@ -175,7 +179,8 @@ using a set of conventions called Unified Modeling Language, or [UML](https://en
 ![Class diagrams for LCAnalyzer](../fig/35_softdesign_class_diagr3.png){: .image-with-shadow width="800px"}
 <p style="text-align: center;">An example of object model diagrams of two possible implementations of the LCAnalyzer. 
 These implementations have the same functionality, but different architectures. 
-The first example has a single class ‘Dataset’, and its methods perform everything from 
+The first example has a single class ‘Dataset’, and its methods (listed in the bottom part of the box;
+the middle section contains class attributes) perform everything from 
 reading the files to plotting periodograms. It doesn’t create a separate object ‘LightCurve’, 
 but instead stores the data as a table (‘ndarray: data’). Extracting the necessary observational 
 datapoints from the records of this table will be the responsibility of every function that will 
@@ -186,24 +191,38 @@ can be vectorised (effectively applied to a numeric array in which our light cur
 In the second architecture, we separate functionality related to the dataset as a whole from the 
 features related to the light curves processing. Even more, every LightCurve object has 
 a dictionary where observations in different bands are stored, with Observations being another 
-class. Plotting functions are also put in a separate class and completely independent, which 
+class. Plotting functions are also put in a separate class and completely independent (there is no connector joining this class with the
+others), which 
 means that we can use them even without having a DataLoader or LightCurve instance. This 
 architecture is better in terms of separation of concerns, more convenient to test and more flexible. </p>
 
 > ## Exercise: Developing class diagram for the Faint Structure Detection software
 >
-> Draw a class diagram for the faint structure detecting software from the previous exercise using pre-defined blocks.
-> Imagine that you realised that you have a new requirement for your software:
+> In this exercise you will use an online diagram drawing tool to create a class diagram for the faint structure
+> detecting software from the previous exercise. Using [this link](https://drive.google.com/file/d/1Q_VySs4baVcmtWCHnCfa9ILvuuBindpE/view?usp=sharing),
+> you can open a file with pre-defined
+> blocks and turn them into a class diagram (the link opens a file on the Google Drive; in the drop-down menu
+> on top of the window choose 'Open with draw.io'). Feel free to move and create additional classes, attributes and methods
+> as you see needed, and think how this architecture would work in practice. Some of the methods and attributes are intentionally
+> placed into the wrong classes!
+> 
+> After doing that, let's imagine that you realised that you have a new requirement for your software:
 > The user should be able to manually draw a mask (to exclude bright stars, artefacts and so on)
-> that will be applied before the stream detection. What kind of requirement is this?
-> Look at your previous object model diagram. Modify it to add the new feature. Do you encounter any difficulties?
+> that will be applied before the stream detection. 
+> Look at your class diagram. Modify it to add the new feature. Do you encounter any difficulties?
 > Did you have to rework a large part of the architecture to satisfy this new requirement?
 > 
 > > ## Solution
-> > 
-> > 
+> > One of the possible solutions is pictured below. Here we have three offered classes and one new class
+> > for plotting and drawing functions. Considering that classes
+> > "Galaxy" and "FaintStructure" are pretty similar up until now, we could also go with creating a parent class 'Structure'
+> > for which "Galaxy" and "FaintStructure" would be child classes.
+> > ![FSDetection software class diagram](../fig/35_softdesign_fsdetection.png){: .image-with-shadow width="300px" }
 > {: .solution}
 >
+> There are multiple tools for drawing diagrams. You can use any of them, including diagram blocks in Google Docs
+> or any other office application. And unless you need to prepare
+> a public software documentation, you can even draw them by hand, if that's more convenient.
 > Time: 10 minutes
 {: .challenge}
 
