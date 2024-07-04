@@ -132,8 +132,50 @@ html_theme = "sphinx_rtd_theme"
 
 At this point we can save the file and move to the documentation itself.
 
-
 ### Creating documentation
 
+In the `docs/` directory we have an `index.rst` file. This file is the source code for rendering the index page
+of your future documentation website. It uses [reStructuredText format (RST)](https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html)
+which is similar to Markdown, but allows more formatting options. [Here](https://sphinx-tutorial.readthedocs.io/cheatsheet/#rst-cheat-sheet)
+you can find cheat sheets for RST in general and Sphinx syntax in particular.
+
+If we open the `index.rst` file with a text editor, we'll see the following:
+~~~
+$ gedit index.rst
+~~~
+{: .language-bash}
+
+~~~
+.. LCAnalyzer documentation master file, created by
+   sphinx-quickstart on Wed Jun  5 18:27:53 2024.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to LCAnalyzer's documentation!
+======================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+~~~
+{: .output}
 
 {% include links.md %}
+
+The structure of this file is like this:
+
+- General description of the file, that won't show in the HTML version.
+- Top-level header, outlined with '===';
+- `.. toctree::` block. The two dots at the beginning of the line always indicate a new block,
+and `.. toctree::` is a mandatory element for the `index.rst` to be rendered. It stands for 'Table of
+Content', and this is where we will add the links to the new pages after we create them. The
+`maxdepth` parameter defines the depth of the content tree that will be displayed in this block.
+- Another top-level header for the default pages of the documentation
+- References to the index of 
